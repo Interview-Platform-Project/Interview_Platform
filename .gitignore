@@ -1,6 +1,8 @@
 # Dependencies
 node_modules/
 .pnpm-store/
+/.pnp
+.pnp.js
 
 # Build output
 dist/
@@ -8,6 +10,7 @@ build/
 .next/
 out/
 *.tsbuildinfo
+next-env.d.ts
 
 # Turbo
 .turbo/
@@ -26,6 +29,8 @@ logs/
 *.log
 npm-debug.log*
 pnpm-debug.log*
+yarn-debug.log*
+yarn-error.log*
 
 # Editor / OS
 .idea/
@@ -33,12 +38,16 @@ pnpm-debug.log*
 !.vscode/extensions.json
 .DS_Store
 Thumbs.db
+*.pem
 
 # Prisma
 apps/api/prisma/migrations/dev.db*
 
 # Storybook
 storybook-static/
+
+# Vercel
+.vercel
 
 # Misc
 *.local
