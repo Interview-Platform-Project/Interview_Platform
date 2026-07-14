@@ -78,3 +78,73 @@ Docs - добавлена или изменена документация.
 Style – изменения в стиле кода (форматирование, пробелы и т.д.). Да, форматирование кода – отдельный коммит, а работа над фичей, или fix – отдельный коммит.
 
 Chore - задачи по обслуживанию проекта (обновления зависимостей, настройка окружения и т.д.).
+
+## Инфраструктура
+
+### Требования
+
+- Docker Desktop
+- Node.js 24 LTS
+- pnpm
+
+### Запуск
+
+```bash
+cp docker/.env.example docker/.env
+
+pnpm install
+
+pnpm docker:up
+```
+
+### Остановить
+
+```bash
+pnpm docker:down
+```
+
+### Показать контейнеры
+
+```bash
+pnpm docker:ps
+```
+
+### Логи
+
+```bash
+pnpm docker:logs
+```
+
+### Удалить все контейнеры
+
+```bash
+pnpm docker:clean
+```
+
+### Сервисы
+
+| Service | URL |
+|----------|-----|
+| PostgreSQL | localhost:5432 |
+| Redis | localhost:6379 |
+| pgAdmin | http://localhost:5050 |
+
+### Вход в pgAdmin:
+
+Email
+
+```
+admin@example.com
+```
+
+Password
+
+```
+admin
+```
+
+Password для юзера postgres
+
+```
+postgres
+```
