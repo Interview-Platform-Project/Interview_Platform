@@ -51,3 +51,8 @@ storybook-static/
 
 # Misc
 *.local
+
+#Docker
+docker/.env
+docker/postgres/data
+docker/pgadmin/data

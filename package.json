@@ -4,6 +4,14 @@
   "private": true,
   "description": "Service for technical and mock interviews (monorepo skeleton).",
   "packageManager": "pnpm@9.0.0",
+  "scripts": {
+    "docker:up": "docker compose -f docker/compose.yaml up -d",
+    "docker:down": "docker compose -f docker/compose.yaml down",
+    "docker:restart": "docker compose -f docker/compose.yaml restart",
+    "docker:logs": "docker compose -f docker/compose.yaml logs -f",
+    "docker:ps": "docker compose -f docker/compose.yaml ps",
+    "docker:clean": "docker compose -f docker/compose.yaml down -v --remove-orphans"
+  },
   "engines": {
     "node": ">=20"
   }
