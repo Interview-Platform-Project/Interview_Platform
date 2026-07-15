@@ -1,0 +1,18 @@
+// ================================
+// User & Auth Related Enums
+// ================================
+
+enum userRole {
+    USER
+    ADMIN
+    MODERATOR
+    SUPERADMIN
+}
+
+enum userStatus {
+    ACTIVE
+    INACTIVE
+    SUSPENDED
+    DELETED
+    BLOCKED
+}
