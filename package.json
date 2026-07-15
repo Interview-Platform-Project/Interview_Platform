@@ -3,8 +3,12 @@
   "version": "0.0.0",
   "private": true,
   "description": "Service for technical and mock interviews (monorepo skeleton).",
-  "packageManager": "pnpm@9.0.0",
   "scripts": {
+     "dev": "pnpm -r --parallel dev",
+    "dev:frontend": "pnpm --filter frontend dev",
+    "dev:backend": "pnpm --filter backend dev",
+    "build": "pnpm -r build",
+    "lint": "pnpm -r lint",
     "docker:up": "docker compose -f docker/compose.yaml up -d",
     "docker:down": "docker compose -f docker/compose.yaml down",
     "docker:restart": "docker compose -f docker/compose.yaml restart",
@@ -12,7 +16,11 @@
     "docker:ps": "docker compose -f docker/compose.yaml ps",
     "docker:clean": "docker compose -f docker/compose.yaml down -v --remove-orphans"
   },
+  "packageManager": "pnpm@9.15.9",
   "engines": {
-    "node": ">=20"
+    "node": ">=24"
+  },
+  "volta": {
+    "node": "24.18.0"
   }
 }
