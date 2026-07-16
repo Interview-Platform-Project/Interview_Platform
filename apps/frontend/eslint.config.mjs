@@ -1,8 +1,11 @@
+// For more info, see https://github.com/storybookjs/eslint-plugin-storybook#configuration-flat-config-format
+
 import eslint from '@eslint/js';
 import nextPlugin from '@next/eslint-plugin-next';
 import importPlugin from 'eslint-plugin-import';
 import reactPlugin from 'eslint-plugin-react';
 import reactHooksPlugin from 'eslint-plugin-react-hooks';
+import storybook from 'eslint-plugin-storybook';
 import tseslint from 'typescript-eslint';
 
 export default tseslint.config(
@@ -10,11 +13,8 @@ export default tseslint.config(
   {
     ignores: ['**/node_modules/**', '.next/**', 'out/**', 'dist/**', 'build/**', '**/*.d.ts'],
   },
-
   eslint.configs.recommended,
-  ...tseslint.configs.recommended,
-
-  // Основной конфиг для всех файлов
+  ...tseslint.configs.recommended, // Основной конфиг для всех файлов
   {
     plugins: {
       react: reactPlugin,
@@ -100,9 +100,7 @@ export default tseslint.config(
         },
       ],
     },
-  },
-
-  // -------- Переопределения для TypeScript --------
+  }, // -------- Переопределения для TypeScript --------
   {
     files: ['**/*.ts', '**/*.tsx'],
     rules: {
@@ -110,13 +108,12 @@ export default tseslint.config(
       '@typescript-eslint/explicit-module-boundary-types': 'off',
       '@typescript-eslint/no-explicit-any': 'warn',
     },
-  },
-
-  // -------- Переопределения для JavaScript --------
+  }, // -------- Переопределения для JavaScript --------
   {
     files: ['**/*.js', '**/*.jsx'],
     rules: {
       '@typescript-eslint/no-var-requires': 'off', // разрешаем require в .js
     },
   },
+  storybook.configs['flat/recommended'],
 );
