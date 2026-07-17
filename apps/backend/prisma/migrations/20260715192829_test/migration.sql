@@ -1,0 +1,5 @@
+-- CreateEnum
+CREATE TYPE "userRole" AS ENUM ('USER', 'ADMIN', 'MODERATOR', 'SUPERADMIN');
+
+-- CreateEnum
+CREATE TYPE "userStatus" AS ENUM ('ACTIVE', 'INACTIVE', 'SUSPENDED', 'DELETED', 'BLOCKED');
