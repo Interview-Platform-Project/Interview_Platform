@@ -1,0 +1,16 @@
+@use "colors";
+@use "normalizer";
+
+:root {
+    height: 100%;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    font-family: var(--font-manrope);
+    background-color: var(--background);
+}
