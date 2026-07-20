@@ -1,12 +1,13 @@
+import '@/app/styles/globals.scss';
 import type { Metadata } from 'next';
-import { Geist, Geist_Mono, Inter } from 'next/font/google';
-import '@/app/styles/globals.css';
+import { Geist_Mono, Inter, Manrope } from 'next/font/google';
+import { ThemeProvider } from 'next-themes';
 import { cn } from '@/shared/lib/utils';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-sans' });
 
-const geistSans = Geist({
-  variable: '--font-geist-sans',
+const manropeSans = Manrope({
+  variable: '--font-manrope',
   subsets: ['latin'],
 });
 
@@ -25,19 +26,17 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  // suppressHydrationWarning on <html> is necessary to avoid warnings from ThemeProvider, since it updates <html>
+  // suppressHydrationWarning applies one level deep, so it won't block hydration warnings on other elements
   return (
     <html
       lang="ru"
-      className={cn(
-        'h-full',
-        'antialiased',
-        geistSans.variable,
-        geistMono.variable,
-        'font-sans',
-        inter.variable,
-      )}
+      className={cn(manropeSans.variable, geistMono.variable, inter.variable)}
+      suppressHydrationWarning
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body>
+        <ThemeProvider>{children}</ThemeProvider>
+      </body>
     </html>
   );
 }

@@ -1,7 +1,8 @@
 .button {
-  height: 60px;
-
-  &--big {
-    height: 100px;
-  }
+    height: 60px;
+    background-color: var(--primary);
+    color: var(--foreground);
+    &--big {
+        height: 100px;
+    }
 }

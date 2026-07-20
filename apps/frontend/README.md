@@ -8,7 +8,7 @@
 - Next.js
 - React
 - TypeScript
-- Tailwind CSS
+- Sass
 - ESLint
 - pnpm
 - shadcn (BaseUI, Lucide icons)
