@@ -1,0 +1,45 @@
+.textarea {
+  width: 100%;
+  min-height: 96px;
+  resize: none;
+  border: 1px solid var(--border);
+  padding: 10px 12px;
+  font-size: 14px;
+  color: var(--foreground);
+  border-radius: 8px;
+  background-color: var(--card);
+  font-family: inherit;
+
+  &--default {
+    border-color: var(--border);
+  }
+
+  &--error {
+    border-color: var(--danger);
+  }
+
+  &--disabled {
+    background-color: var(--muted);
+    color: var(--muted-foreground);
+    cursor: not-allowed;
+  }
+
+  &--focused {
+    appearance: none;
+    -webkit-appearance: none;
+    border: 1px solid var(--ring);
+    outline: none;
+    box-shadow: none;
+  }
+
+  &--success {
+    border-color: var(--success);
+  }
+}
+
+.label {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  color: var(--foreground);
+}

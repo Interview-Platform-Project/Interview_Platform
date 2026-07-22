@@ -1,41 +1,41 @@
 :root {
-    /* Surfaces / Поверхности */
-    --background: oklch(1 0 0);
-    --card: oklch(1 0 0);
-    --secondary: oklch(0.9674 0.0013 286.38);
-    --muted: oklch(0.9674 0.0013 286.38);
+  /* Surfaces / Поверхности */
+  --background: #ffffff;
+  --card: #ffffff;
+  --secondary: #f4f4f5;
+  --muted: #f4f4f5;
 
-    /* Interactive / Интерактивные элементы*/
-    --primary: oklch(0.2103 0.0059 285.89);
-    --border: oklch(0.9197 0.004 286.32);
-    --ring: oklch(0.2103 0.0059 285.89);
+  /* Interactive / Интерактивные элементы*/
+  --primary: #18181b;
+  --border: #e4e4e7;
+  --ring: #18181b;
 
-    /* Typography / Текст */
-    --foreground: oklch(0.1408 0.0044 285.82);
-    --muted-foreground: oklch(0.5517 0.0138 285.94);
+  /* Typography / Текст */
+  --foreground: #09090b;
+  --muted-foreground: #71717a;
 
-    /* Status / Статус */
-    --danger: oklch(0.6378 0.2373 25.44);
-    --danger-20: oklch(0.6378 0.2373 25.44 / 50.2%);
-    --warn: oklch(0.7977 0.1641 82.71);
-    --warn-20: oklch(0.7977 0.1641 82.71 / 20%);
-    --success: oklch(0.7289 0.2119 147.82);
-    --success-20: oklch(0.7289 0.2119 147.82 / 20%);
+  /* Status / Статус */
+  --danger: #fb2c36;
+  --danger-20: #fb2c3680;
+  --warn: #f0b100;
+  --warn-20: #f0b10033;
+  --success: #01c950;
+  --success-20: #01c95033;
 }
 
 :root.dark {
-    /* Surfaces / Поверхности */
-    --background: oklch(0.1408 0.0044 285.82);
-    --card: oklch(0.1831 0.004 285.99);
-    --secondary: oklch(0.2739 0.0055 286.03);
-    --muted: oklch(0.2103 0.0059 285.89);
+  /* Surfaces / Поверхности */
+  --background: #09090b;
+  --card: #121214;
+  --secondary: #27272a;
+  --muted: #18181b;
 
-    /* Interactive / Интерактивные элементы*/
-    --primary: oklch(1 0 0);
-    --border: oklch(0.2739 0.0055 286.03);
-    --ring: oklch(0.8711 0.0055 286.29);
+  /* Interactive / Интерактивные элементы*/
+  --primary: #ffffff;
+  --border: #27272a;
+  --ring: #d4d4d8;
 
-    /* Typography / Текст */
-    --foreground: oklch(0.9851 0 0);
-    --muted-foreground: oklch(0.7118 0.0129 286.07);
+  /* Typography / Текст */
+  --foreground: #fafafa;
+  --muted-foreground: #a1a1aa;
 }
