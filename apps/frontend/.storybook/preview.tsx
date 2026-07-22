@@ -1,7 +1,7 @@
 import '@/app/styles/globals.scss';
-import { withThemeByClassName } from '@storybook/addon-themes';
 import type { Preview } from '@storybook/nextjs-vite';
-import Layout from '@/app/providers/Layout';
+import { ThemeProvider } from '@/app/providers/ThemeProvider/ui';
+import { ThemeDecorator } from '@/shared/config/storybook/ThemeDecorator';
 
 const preview: Preview = {
   parameters: {
@@ -19,18 +19,7 @@ const preview: Preview = {
     },
   },
   decorators: [
-    withThemeByClassName({
-      themes: {
-        light: '',
-        dark: 'dark',
-      },
-      defaultTheme: 'light',
-    }),
-    (Story) => (
-      <Layout>
-        <Story />
-      </Layout>
-    ),
+    ThemeDecorator
   ],
 };
 
