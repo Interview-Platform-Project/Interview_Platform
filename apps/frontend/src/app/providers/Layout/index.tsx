@@ -1,20 +1,9 @@
 import '@/app/styles/globals.scss';
 import type { Metadata } from 'next';
-import { Geist_Mono, Inter, Manrope } from 'next/font/google';
-import { ThemeProvider } from 'next-themes';
+import { fonts } from '@/app/config/fonts';
 import { cn } from '@/shared/lib/utils';
 
-const inter = Inter({ subsets: ['latin'], variable: '--font-sans' });
-
-const manropeSans = Manrope({
-  variable: '--font-manrope',
-  subsets: ['latin'],
-});
-
-const geistMono = Geist_Mono({
-  variable: '--font-geist-mono',
-  subsets: ['latin'],
-});
+import { ThemeProvider } from '../ThemeProvider';
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -31,11 +20,13 @@ export default function RootLayout({
   return (
     <html
       lang="ru"
-      className={cn(manropeSans.variable, geistMono.variable, inter.variable)}
+      className={cn(fonts.manropeSans.variable, fonts.geistMono.variable, fonts.inter.variable)}
       suppressHydrationWarning
     >
       <body>
-        <ThemeProvider>{children}</ThemeProvider>
+        <ThemeProvider>
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );
