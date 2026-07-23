@@ -1,13 +1,45 @@
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  position: relative;
+}
+
+.label {
+  color: var(--foreground);
+
+  &--error {
+    color: var(--danger);
+  }
+}
+
+.error {
+  color: var(--danger);
+  font-size: 12px;
+}
+
+.input[data-invalid] {
+  border-color: var(--danger);
+}
+
+.field[data-invalid] .label {
+  color: var(--danger);
+}
+
 .input {
   width: 100%;
-
   border: 1px solid var(--border);
-
   padding: 10px 12px;
   font-size: 14px;
   color: var(--foreground);
   border-radius: 8px;
   background-color: var(--card);
+
+  &:focus,
+  &:focus-visible {
+    outline: none;
+    box-shadow: none;
+  }
 
   &--default {
     border-color: var(--border);
@@ -15,6 +47,13 @@
 
   &--error {
     border-color: var(--danger);
+
+    &:focus,
+    &:focus-visible {
+      border-color: var(--danger);
+      outline: none;
+      box-shadow: none;
+    }
   }
 
   &--disabled {
@@ -23,15 +62,42 @@
     cursor: not-allowed;
   }
 
-  &--focused {
-    appearance: none;
-    -webkit-appearance: none;
-    border: 1px solid var(--ring);
-    outline: none;
-    box-shadow: none;
-  }
-
   &--success {
     border-color: var(--success);
+
+    &:focus,
+    &:focus-visible {
+      border-color: var(--success);
+      outline: none;
+      box-shadow: none;
+    }
   }
+}
+
+.inputWithIcon {
+  padding-left: 40px; /* место под иконку */
+}
+
+.iconInside {
+  position: absolute;
+  left: 12px;
+  top: 30%;
+  bottom: 0;
+  margin: auto 0;
+  height: 16px;
+  width: 16px;
+  color: var(--muted-foreground);
+  pointer-events: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+}
+
+.field[data-focused] .iconInside {
+  /* keep icon muted on focus; do not change color on focus */
+  color: var(--muted-foreground);
+}
+.field[data-invalid] .iconInside {
+  color: var(--danger);
 }

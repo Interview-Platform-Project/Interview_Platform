@@ -27,6 +27,7 @@ export const Default: Story = {
 export const Error: Story = {
   args: {
     inputState: TextAreaStates.ERROR,
+    errorText: 'Поле обязательно',
   },
 };
 

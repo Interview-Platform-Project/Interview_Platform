@@ -8,7 +8,6 @@ export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
 export enum InputStates {
   DEFAULT = 'default',
   ACTIVE = 'active',
-  FOCUSED = 'focused',
   DISABLED = 'disabled',
   ERROR = 'error',
   SUCCESS = 'success',
