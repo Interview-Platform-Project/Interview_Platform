@@ -1,0 +1,26 @@
+enum SkillLevel {
+  JUNIOR
+  JUNIOR_PLUS
+  MIDDLE
+  MIDDLE_PLUS
+  SENIOR
+  LEAD
+}
+
+enum LanguageLevel {
+  A1
+  A2
+  B1
+  B2
+  C1
+  C2
+  NATIVE
+}
+
+enum userStatus {
+  ACTIVE
+  INACTIVE
+  SUSPENDED
+  DELETED
+  BLOCKED
+}

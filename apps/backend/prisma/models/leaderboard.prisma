@@ -1,0 +1,15 @@
+model Leaderboard {
+  id String @id @default(cuid())
+
+  profileId String @unique
+
+  profile Profile @relation(fields: [profileId], references: [id], onDelete: Cascade)
+
+  points Int @default(0)
+
+  rank Int @default(0)
+
+  updatedAt DateTime @updatedAt
+
+  @@index([points(sort: Desc)])
+}

@@ -1,0 +1,17 @@
+model MarketplaceCard {
+  id String @id @default(cuid())
+
+  profileId String @unique
+
+  profile Profile @relation(fields: [profileId], references: [id])
+
+  shortDescription String?
+
+  status MarketplaceStatus
+
+  available Boolean @default(true)
+
+  createdAt DateTime @default(now())
+
+  updatedAt DateTime @updatedAt
+}

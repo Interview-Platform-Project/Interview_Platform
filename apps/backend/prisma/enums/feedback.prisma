@@ -1,0 +1,12 @@
+enum FeedbackVisibility {
+  PRIVATE
+  SHARED
+}
+
+enum FeedbackRecommendation {
+  STRONG_NO
+  NO
+  MAYBE
+  YES
+  STRONG_YES
+}

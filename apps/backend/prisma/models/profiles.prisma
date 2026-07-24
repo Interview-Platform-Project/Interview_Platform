@@ -1,0 +1,27 @@
+model Profile {
+  id              String                  @id @default(cuid())
+  userId          String                  @unique
+  user            User                    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  avatarUrl       String?
+  positionId      String?
+  position        Position?               @relation(fields: [positionId], references: [id])
+  bio             String?
+  country         String?
+  city            String?
+  timezone        String?
+  github          String?
+  linkedin        String?
+  website         String?
+  hourlyRate      Int?
+  experienceYears Int?
+  stats           ProfileStatistics?
+  marketplace     MarketplaceCard?
+  technologies    ProfileTechnology[]
+  languages       ProfileLanguage[]
+  leaderboard     Leaderboard?
+  status          ProfileStatus           @default(OFFLINE)
+  workExperiences WorkExperience[]
+  interviewTopics ProfileInterviewTopic[]
+  createdAt       DateTime                @default(now())
+  updatedAt       DateTime                @updatedAt
+}

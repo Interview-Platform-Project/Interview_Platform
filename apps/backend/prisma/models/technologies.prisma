@@ -1,0 +1,24 @@
+model Technology {
+  id Int @id @default(autoincrement())
+
+  slug String @unique
+
+  name     String
+  category String
+
+  profiles ProfileTechnology[]
+}
+
+model ProfileTechnology {
+  profileId String
+
+  technologyId Int
+
+  level SkillLevel
+
+  profile Profile @relation(fields: [profileId], references: [id])
+
+  technology Technology @relation(fields: [technologyId], references: [id])
+
+  @@id([profileId, technologyId])
+}

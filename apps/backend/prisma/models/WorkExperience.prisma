@@ -1,0 +1,20 @@
+model WorkExperience {
+  id String @id @default(cuid())
+
+  profileId String
+  profile   Profile @relation(fields: [profileId], references: [id], onDelete: Cascade)
+
+  position String
+  company  String
+
+  startDate DateTime
+  endDate   DateTime?
+  isCurrent Boolean   @default(false)
+
+  description String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("work_experiences")
+}
