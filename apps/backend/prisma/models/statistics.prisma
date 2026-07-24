@@ -1,0 +1,17 @@
+model ProfileStatistics {
+  id                      String @id @default(cuid())
+  profileId               String @unique @map("profile_id")
+  completedInterviews     Int    @default(0) @map("completed_interviews")
+  completedMockInterviews Int    @default(0) @map("completed_mock_interviews")
+  averageScore            Float  @default(0) @map("average_score")
+  totalPoints             Int    @default(0) @map("total_points")
+  currentStreak           Int    @default(0) @map("current_streak")
+  totalHours              Float  @default(0) @map("total_hours")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  profile Profile @relation(fields: [profileId], references: [id], onDelete: Cascade)
+
+  @@map("profile_statistics")
+}

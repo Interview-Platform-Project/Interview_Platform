@@ -1,0 +1,18 @@
+enum SessionStatus {
+  CREATED
+  WAITING
+  ACTIVE
+  FINISHED
+  CANCELLED
+}
+
+enum SessionType {
+  MOCK
+  TECHNICAL
+}
+
+enum ParticipantRole {
+  INTERVIEWER
+  CANDIDATE
+  OBSERVER
+}
