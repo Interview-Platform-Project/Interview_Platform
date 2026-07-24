@@ -1,0 +1,6 @@
+enum MarketplaceStatus {
+  AVAILABLE
+  BUSY
+  IN_INTERVIEW
+  OFFLINE
+}

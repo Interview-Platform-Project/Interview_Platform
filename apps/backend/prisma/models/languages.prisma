@@ -1,0 +1,23 @@
+model Language {
+  id Int @id @default(autoincrement())
+
+  code String @unique
+
+  name String
+
+  profiles ProfileLanguage[]
+}
+
+model ProfileLanguage {
+  profileId String
+
+  languageId Int
+
+  level LanguageLevel
+
+  profile Profile @relation(fields: [profileId], references: [id])
+
+  language Language @relation(fields: [languageId], references: [id])
+
+  @@id([profileId, languageId])
+}

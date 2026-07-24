@@ -1,0 +1,14 @@
+model Session {
+  id String @id @default(cuid())
+
+  createdBy String
+  user      User   @relation(fields: [createdBy], references: [id])
+
+  status SessionStatus
+
+  startedAt DateTime?
+
+  finishedAt DateTime?
+
+  createdAt DateTime @default(now())
+}

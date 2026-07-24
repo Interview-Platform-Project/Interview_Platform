@@ -1,0 +1,29 @@
+model InterviewTopic {
+  id String @id @default(cuid())
+
+  name String @unique
+  slug String @unique
+
+  category InterviewTopicCategory
+
+  description String?
+  order       Int     @default(0)
+  isActive    Boolean @default(true)
+
+  profiles ProfileInterviewTopic[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("interview_topics")
+}
+
+model ProfileInterviewTopic {
+  profileId String
+  topicId   String
+
+  profile Profile        @relation(fields: [profileId], references: [id], onDelete: Cascade)
+  topic   InterviewTopic @relation(fields: [topicId], references: [id])
+
+  @@id([profileId, topicId])
+}

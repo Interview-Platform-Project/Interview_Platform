@@ -1,0 +1,16 @@
+model Feedback {
+  id String @id @default(cuid())
+
+  sessionId String
+
+  authorId String
+  user     User   @relation(fields: [authorId], references: [id], onDelete: Cascade)
+
+  targetId String
+
+  score Int
+
+  comment String?
+
+  createdAt DateTime @default(now())
+}

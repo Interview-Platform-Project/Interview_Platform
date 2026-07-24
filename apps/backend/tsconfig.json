@@ -16,10 +16,11 @@
     "forceConsistentCasingInFileNames": true,
     "noFallthroughCasesInSwitch": true,
     "esModuleInterop": true,
-    "paths": {
-      "#prisma/client": ["./generated/prisma/client"]
-    }
+    "paths": {}
   },
-  "include": ["src/**/*"],
+  "include": [
+    "src/**/*",
+    "prisma/**/*"
+],
   "exclude": ["node_modules", "dist", "generated"]
 }

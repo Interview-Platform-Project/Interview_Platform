@@ -1,13 +1,13 @@
-// ================================
-// User Model
-// ================================
-
 model User {
   id        String   @id @default(uuid())
   email     String   @unique
   name      String
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
+
+  profile   Profile?
+  feedbacks Feedback[]
+  sessions  Session[]
 
   @@map("users")
 }

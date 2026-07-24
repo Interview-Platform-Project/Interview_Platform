@@ -1,0 +1,30 @@
+enum PositionCategory {
+  BACKEND
+  FRONTEND
+  FULLSTACK
+  MOBILE
+  DEVOPS
+  QA
+  DATA
+  DESIGN
+  MANAGEMENT
+}
+
+enum ProfileStatus {
+  OFFLINE
+  AVAILABLE
+  BUSY
+  IN_INTERVIEW
+}
+
+enum InterviewTopicCategory {
+  ALGORITHMS
+  SYSTEM_DESIGN
+  BACKEND
+  FRONTEND
+  DATABASES
+  DEVOPS
+  MOBILE
+  TESTING
+  SOFT_SKILLS
+}
