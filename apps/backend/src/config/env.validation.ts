@@ -1,5 +1,5 @@
 import { plainToInstance } from 'class-transformer';
-import { IsEnum, IsInt, IsString, Min, validateSync } from 'class-validator';
+import { IsEnum, IsInt, IsOptional, IsString, Min, validateSync } from 'class-validator';
 
 enum Environment {
   Development = 'development',
@@ -20,6 +20,22 @@ class EnvironmentVariables {
 
   @IsString()
   REDIS_URL!: string;
+
+  @IsString()
+  JWT_SECRET!: string;
+
+  @IsString()
+  JWT_REFRESH_SECRET!: string;
+
+  @IsInt()
+  @Min(1)
+  @IsOptional()
+  JWT_ACCESS_EXPIRES_MS?: number;
+
+  @IsInt()
+  @Min(1)
+  @IsOptional()
+  JWT_REFRESH_EXPIRES_MS?: number;
 }
 
 export function validate(config: Record<string, unknown>) {
