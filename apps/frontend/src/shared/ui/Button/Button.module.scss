@@ -1,8 +1,131 @@
 .button {
-    height: 60px;
-    background-color: var(--primary);
-    color: var(--foreground);
-    &--big {
-        height: 100px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  font-weight: 500;
+  line-height: 1;
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease,
+    opacity 0.2s ease;
+
+  &:focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
+  }
+
+  &__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+
+    svg {
+      width: 20px;
+      height: 20px;
     }
+  }
+
+  &__content {
+    display: inline-flex;
+    align-items: center;
+    white-space: nowrap;
+  }
+
+  &--variant-primary {
+    background-color: var(--primary);
+    color: var(--background);
+
+    &:hover:not(:disabled):not([data-disabled]) {
+      opacity: 0.92;
+    }
+  }
+
+  &--variant-secondary {
+    background-color: var(--secondary);
+    color: var(--primary);
+
+    &:hover:not(:disabled):not([data-disabled]) {
+      opacity: 0.92;
+    }
+  }
+
+  &--variant-outline {
+    background-color: transparent;
+    color: var(--primary);
+    // border-color: var(--border);
+    border-color: var(--muted-foreground);
+
+    &:hover:not(:disabled):not([data-disabled]) {
+      background-color: var(--secondary);
+    }
+  }
+
+  &--variant-ghost {
+    background-color: transparent;
+    color: var(--primary);
+
+    &:hover:not(:disabled):not([data-disabled]) {
+      background-color: var(--secondary);
+    }
+  }
+
+  &--variant-danger {
+    background-color: transparent;
+    color: var(--danger);
+    border-color: var(--danger-20);
+
+    &:hover:not(:disabled):not([data-disabled]) {
+      background-color: var(--danger-20);
+    }
+  }
+
+  &--size-small {
+    min-height: 36px;
+    padding: 0 14px;
+    font-size: 16px;
+  }
+
+  &--size-medium {
+    min-height: 48px;
+    padding: 0 18px;
+    font-size: 20px;
+  }
+
+  &--size-large {
+    min-height: 56px;
+    padding: 0 24px;
+    font-size: 24px;
+  }
+
+  &--icon-only {
+    padding: 0;
+    aspect-ratio: 1 / 1;
+  }
+
+  &--size-small.button--icon-only {
+    width: 36px;
+    min-width: 36px;
+  }
+
+  &--size-medium.button--icon-only {
+    width: 48px;
+    min-width: 48px;
+  }
+
+  &--size-large.button--icon-only {
+    width: 56px;
+    min-width: 56px;
+  }
+
+  &:disabled,
+  &[data-disabled] {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
 }
