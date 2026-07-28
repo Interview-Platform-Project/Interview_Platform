@@ -2,48 +2,24 @@ import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import { Search, Settings, Trash2 } from 'lucide-react';
 import { Button } from './Button';
 
-const iconOptions = {
-  none: undefined,
-  settings: <Settings size={20} aria-hidden="true" />,
-  trash: <Trash2 size={20} aria-hidden="true" />,
-  search: <Search size={20} aria-hidden="true" />,
-} as const;
-
 const meta = {
   title: 'shared/ui/Button',
   component: Button,
   tags: ['autodocs'],
   args: {
-    variant: 'primary',
-    size: 'medium',
+    variant: 'secondary',
+    size: 'md',
     disabled: false,
     children: 'Нажми меня',
-    icon: undefined,
   },
   argTypes: {
     variant: {
       control: 'select',
-      options: ['primary', 'secondary', 'outline', 'ghost', 'danger'],
+      options: ['secondary', 'outline', 'ghost', 'danger'],
     },
     size: {
       control: 'select',
-      options: ['small', 'medium', 'large'],
-    },
-    icon: {
-      control: { type: 'select' },
-      options: Object.keys(iconOptions),
-      mapping: iconOptions,
-      labels: {
-        none: 'Без иконки',
-        settings: 'Settings',
-        trash: 'Trash2',
-        search: 'Search',
-      },
-      table: {
-        type: {
-          summary: 'ReactNode',
-        },
-      },
+      options: ['sm', 'md', 'lg'],
     },
   },
 } satisfies Meta<typeof Button>;
@@ -81,19 +57,19 @@ export const Danger: Story = {
 
 export const Small: Story = {
   args: {
-    size: 'small',
+    size: 'sm',
   },
 };
 
 export const Medium: Story = {
   args: {
-    size: 'medium',
+    size: 'md',
   },
 };
 
 export const Large: Story = {
   args: {
-    size: 'large',
+    size: 'lg',
   },
 };
 
@@ -105,16 +81,18 @@ export const Disabled: Story = {
 
 export const WithStartIcon: Story = {
   args: {
-    children: 'Настройки',
-    icon: <Settings size={20} aria-hidden="true" />,
-    iconPosition: 'start',
+    children: [
+      <span key="label">Настройки</span>,
+      <Settings key="icon" size={20} aria-hidden="true" />,
+    ],
   },
 };
 
 export const IconOnly: Story = {
   args: {
-    icon: <Search size={20} aria-hidden="true" />,
-    iconOnly: true,
+    children: <Search size={20} aria-hidden="true" />,
+    // icon: <Search size={20} aria-hidden="true" />,
+    // iconOnly: true,
     'aria-label': 'Поиск',
   },
 };
@@ -125,7 +103,7 @@ export const Showcase: Story = {
       style={{ display: 'flex', flexDirection: 'column', gap: 20, width: '100%', maxWidth: 980 }}
     >
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: 16, alignItems: 'center' }}>
-        <Button variant="primary">Основная</Button>
+        <Button>Основная</Button>
         <Button variant="secondary">Вторичная</Button>
         <Button variant="outline">С обводкой</Button>
         <Button variant="ghost">Без фона</Button>
@@ -133,11 +111,17 @@ export const Showcase: Story = {
       </div>
 
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: 16, alignItems: 'center' }}>
-        <Button icon={<Settings size={20} aria-hidden="true" />}>Настройки</Button>
+        <Button>
+          <Settings size={20} aria-hidden="true" />
+          Настройки
+        </Button>
         <Button disabled>Отключена</Button>
-        <Button size="small">Маленькая</Button>
-        <Button size="large">Большая</Button>
-        <Button icon={<Trash2 size={20} aria-hidden="true" />} iconOnly aria-label="Поиск" />
+        <Button size="sm">Маленькая</Button>
+        <Button size="lg">Большая</Button>
+
+        <Button>
+          <Trash2 size={20} aria-hidden="true" />
+        </Button>
       </div>
     </div>
   ),

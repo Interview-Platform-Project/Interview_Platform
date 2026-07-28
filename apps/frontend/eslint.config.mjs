@@ -11,7 +11,15 @@ import tseslint from 'typescript-eslint';
 export default tseslint.config(
   // Глобальные игнорируемые пути
   {
-    ignores: ['**/node_modules/**', '.next/**', 'out/**', 'dist/**', 'build/**', '**/*.d.ts'],
+    ignores: [
+      '**/node_modules/**',
+      '.next/**',
+      'out/**',
+      'dist/**',
+      'build/**',
+      'storybook-static/**',
+      '**/*.d.ts',
+    ],
   },
   eslint.configs.recommended,
   ...tseslint.configs.recommended, // Основной конфиг для всех файлов
