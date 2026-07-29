@@ -1,4 +1,4 @@
-.label {
+.checkbox {
   display: inline-flex;
   align-items: center;
   gap: 12px;
@@ -6,7 +6,7 @@
   cursor: pointer;
 }
 
-.checkboxRoot {
+.checkbox__root {
   width: 18px;
   height: 18px;
   background: var(--foreground);
@@ -17,53 +17,20 @@
   flex: 0 0 auto;
 }
 
-.checkboxIndicator {
+.checkbox__indicator {
   display: inline-flex;
   align-items: center;
   justify-content: center;
 }
 
-.checkboxIndicator svg {
+.checkbox__indicator svg {
   color: var(--background);
 }
 
-.radioRoot {
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  background: transparent;
-  flex: 0 0 auto;
-}
-
-.radioIndicator {
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  background: var(--card);
-  display: inline-block;
-}
-
-.radioDot {
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  background: var(--foreground);
-  display: block;
-}
-
-.checkboxRoot[data-disabled],
-.radioRoot[data-disabled] {
+.checkbox__root[data-disabled] {
   opacity: 0.6;
 }
 
-.labelRadio {
-  border: 1px solid var(--foreground);
-  border-radius: 12px;
-  padding: 12px;
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
+.checkbox__label {
+  color: inherit;
 }

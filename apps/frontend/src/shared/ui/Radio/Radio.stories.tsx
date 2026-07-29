@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
-import Checkbox from './Checkbox';
+import Radio from './Radio';
 
 const meta = {
-  component: Checkbox,
-} satisfies Meta<typeof Checkbox>;
+  component: Radio,
+} satisfies Meta<typeof Radio>;
 
 export default meta;
 
@@ -11,21 +11,21 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    children: 'Чекбокс активен',
+    children: 'Radio кнопка',
     defaultChecked: true,
   },
 };
 
 export const Unchecked: Story = {
   args: {
-    children: 'Чекбокс',
+    children: 'Radio кнопка',
   },
 };
 
 export const Disabled: Story = {
   args: {
-    children: 'Недоступный чекбокс',
-    disabled: true,
+    children: 'Недоступная radio',
     defaultChecked: true,
+    disabled: true,
   },
 };

@@ -5,10 +5,9 @@ import styles from './Checkbox.module.scss';
 
 type CheckboxProps = React.ComponentPropsWithoutRef<typeof BaseCheckbox.Root> & {
   children?: React.ReactNode;
-  variant?: 'checkbox' | 'radio';
 };
 
-function CheckIcon(props: React.ComponentProps<'svg'>) {
+function CheckIcon() {
   return (
     <svg
       width="12"
@@ -19,7 +18,6 @@ function CheckIcon(props: React.ComponentProps<'svg'>) {
       strokeWidth={2}
       strokeLinecap="round"
       strokeLinejoin="round"
-      {...props}
     >
       <path d="m2.5 8.5 4 4 7-9" />
     </svg>
@@ -27,22 +25,17 @@ function CheckIcon(props: React.ComponentProps<'svg'>) {
 }
 
 export function Checkbox(props: CheckboxProps) {
-  const { children, className, variant = 'checkbox', ...rest } = props;
-
-  const rootClass = cn(variant === 'radio' ? styles.radioRoot : styles.checkboxRoot, className);
-
-  const indicatorClass = variant === 'radio' ? styles.radioIndicator : styles.checkboxIndicator;
-
-  const labelClass = cn(styles.label, variant === 'radio' && styles.labelRadio);
+  const { children, className, ...rest } = props;
 
   return (
-    <label className={labelClass}>
-      <BaseCheckbox.Root className={rootClass} {...rest}>
-        <BaseCheckbox.Indicator className={indicatorClass}>
-          {variant === 'checkbox' ? <CheckIcon /> : <span className={styles.radioDot} />}
+    <label className={styles.checkbox}>
+      <BaseCheckbox.Root className={cn(styles.checkbox__root, className)} {...rest}>
+        <BaseCheckbox.Indicator className={styles.checkbox__indicator}>
+          <CheckIcon />
         </BaseCheckbox.Indicator>
       </BaseCheckbox.Root>
-      <span className={styles.labelText}>{children}</span>
+
+      <span className={styles.checkbox__label}>{children}</span>
     </label>
   );
 }
