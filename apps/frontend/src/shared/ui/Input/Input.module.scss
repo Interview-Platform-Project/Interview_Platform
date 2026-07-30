@@ -1,31 +1,3 @@
-.field {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  position: relative;
-}
-
-.label {
-  color: var(--foreground);
-
-  &--error {
-    color: var(--danger);
-  }
-}
-
-.error {
-  color: var(--danger);
-  font-size: 12px;
-}
-
-.input[data-invalid] {
-  border-color: var(--danger);
-}
-
-.field[data-invalid] .label {
-  color: var(--danger);
-}
-
 .input {
   width: 100%;
   border: 1px solid var(--border);
@@ -41,6 +13,10 @@
     box-shadow: none;
   }
 
+  &[data-invalid] {
+    border-color: var(--danger);
+  }
+
   &--default {
     border-color: var(--border);
   }
@@ -51,8 +27,15 @@
     &:focus,
     &:focus-visible {
       border-color: var(--danger);
-      outline: none;
-      box-shadow: none;
+    }
+  }
+
+  &--success {
+    border-color: var(--success);
+
+    &:focus,
+    &:focus-visible {
+      border-color: var(--success);
     }
   }
 
@@ -62,42 +45,59 @@
     cursor: not-allowed;
   }
 
-  &--success {
-    border-color: var(--success);
+  &__field {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    position: relative;
 
-    &:focus,
-    &:focus-visible {
-      border-color: var(--success);
-      outline: none;
-      box-shadow: none;
+    &[data-invalid] {
+      .input__label {
+        color: var(--danger);
+      }
+
+      .input__icon {
+        color: var(--danger);
+      }
+    }
+
+    &[data-focused] {
+      .input__icon {
+        color: var(--muted-foreground);
+      }
     }
   }
-}
 
-.inputWithIcon {
-  padding-left: 40px; /* место под иконку */
-}
+  &__label {
+    color: var(--foreground);
 
-.iconInside {
-  position: absolute;
-  left: 12px;
-  top: 30%;
-  bottom: 0;
-  margin: auto 0;
-  height: 16px;
-  width: 16px;
-  color: var(--muted-foreground);
-  pointer-events: none;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 2;
-}
+    &--error {
+      color: var(--danger);
+    }
+  }
 
-.field[data-focused] .iconInside {
-  /* keep icon muted on focus; do not change color on focus */
-  color: var(--muted-foreground);
-}
-.field[data-invalid] .iconInside {
-  color: var(--danger);
+  &__error {
+    color: var(--danger);
+    font-size: 12px;
+  }
+
+  &__icon {
+    position: absolute;
+    left: 12px;
+    top: 30%;
+    bottom: 0;
+    margin: auto 0;
+    width: 16px;
+    height: 16px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--muted-foreground);
+    pointer-events: none;
+    z-index: 2;
+  }
+
+  &__control {
+    padding-left: 40px;
+  }
 }

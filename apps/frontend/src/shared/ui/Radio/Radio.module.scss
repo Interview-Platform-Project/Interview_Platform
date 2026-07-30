@@ -6,40 +6,40 @@
   border-radius: 12px;
   padding: 12px;
   cursor: pointer;
-}
 
-.radio__root {
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  background: transparent;
-  flex: 0 0 auto;
-}
+  &__root {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    flex: 0 0 auto;
 
-.radio__indicator {
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  background: var(--card);
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-}
+    &[data-disabled] {
+      opacity: 0.6;
+    }
+  }
 
-.radio__dot {
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  background: var(--foreground);
-}
+  &__indicator {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--card);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
 
-.radio__root[data-disabled] {
-  opacity: 0.6;
-}
+  &__dot {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--foreground);
+  }
 
-.radio__label {
-  color: var(--foreground);
+  &__label {
+    color: var(--foreground);
+  }
 }

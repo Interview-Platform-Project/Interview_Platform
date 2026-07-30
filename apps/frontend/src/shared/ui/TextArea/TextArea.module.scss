@@ -1,39 +1,12 @@
-.field {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.label {
-  color: var(--foreground);
-
-  &--error {
-    color: var(--danger);
-  }
-}
-
-.error {
-  color: var(--danger);
-  font-size: 12px;
-}
-
-.textarea[data-invalid] {
-  border-color: var(--danger);
-}
-
-.field[data-invalid] .label {
-  color: var(--danger);
-}
-
 .textarea {
   width: 100%;
   min-height: 96px;
   resize: none;
 
+  padding: 10px 12px;
+
   border: 1px solid var(--border);
   border-radius: 8px;
-
-  padding: 10px 12px;
 
   background: var(--card);
   color: var(--foreground);
@@ -42,7 +15,12 @@
 
   &:focus,
   &:focus-visible {
+    outline: none;
     box-shadow: none;
+  }
+
+  &[data-invalid] {
+    border-color: var(--danger);
   }
 
   &--default {
@@ -55,8 +33,15 @@
     &:focus,
     &:focus-visible {
       border-color: var(--danger);
-      outline: none;
-      box-shadow: none;
+    }
+  }
+
+  &--success {
+    border-color: var(--success);
+
+    &:focus,
+    &:focus-visible {
+      border-color: var(--success);
     }
   }
 
@@ -66,14 +51,28 @@
     cursor: not-allowed;
   }
 
-  &--success {
-    border-color: var(--success);
+  &__field {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
 
-    &:focus,
-    &:focus-visible {
-      border-color: var(--success);
-      outline: none;
-      box-shadow: none;
+    &[data-invalid] {
+      .textarea__label {
+        color: var(--danger);
+      }
     }
+  }
+
+  &__label {
+    color: var(--foreground);
+
+    &--error {
+      color: var(--danger);
+    }
+  }
+
+  &__error {
+    color: var(--danger);
+    font-size: 12px;
   }
 }

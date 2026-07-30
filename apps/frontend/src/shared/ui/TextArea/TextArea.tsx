@@ -28,13 +28,15 @@ export function TextArea(props: TextAreaWithErrorProps) {
 
   return (
     <Field.Root
-      className={styles.field}
+      className={styles.textarea__field}
       invalid={invalid}
       validate={validate}
       validationMode={validationMode}
     >
       {children && (
-        <Field.Label className={cn(styles.label, invalid && styles['label--error'])}>
+        <Field.Label
+          className={cn(styles.textarea__label, invalid && styles['textarea__label--error'])}
+        >
           {children}
         </Field.Label>
       )}
@@ -45,7 +47,7 @@ export function TextArea(props: TextAreaWithErrorProps) {
         }
       />
 
-      {errorText && <Field.Error className={styles.error}>{errorText}</Field.Error>}
+      {errorText && <Field.Error className={styles.textarea__error}>{errorText}</Field.Error>}
     </Field.Root>
   );
 }

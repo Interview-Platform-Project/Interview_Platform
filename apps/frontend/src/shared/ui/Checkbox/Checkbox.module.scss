@@ -4,33 +4,33 @@
   gap: 12px;
   color: var(--foreground);
   cursor: pointer;
-}
 
-.checkbox__root {
-  width: 18px;
-  height: 18px;
-  background: var(--foreground);
-  border-radius: 6px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  flex: 0 0 auto;
-}
+  &__root {
+    width: 18px;
+    height: 18px;
+    background: var(--foreground);
+    border-radius: 6px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 auto;
 
-.checkbox__indicator {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-}
+    &[data-disabled] {
+      opacity: 0.6;
+    }
+  }
 
-.checkbox__indicator svg {
-  color: var(--background);
-}
+  &__indicator {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 
-.checkbox__root[data-disabled] {
-  opacity: 0.6;
-}
+    svg {
+      color: var(--background);
+    }
+  }
 
-.checkbox__label {
-  color: inherit;
+  &__label {
+    color: inherit;
+  }
 }

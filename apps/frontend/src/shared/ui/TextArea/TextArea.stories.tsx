@@ -38,12 +38,6 @@ export const Disabled: Story = {
   },
 };
 
-export const Focused: Story = {
-  args: {
-    inputState: TextAreaStates.FOCUSED,
-  },
-};
-
 export const Success: Story = {
   args: {
     inputState: TextAreaStates.SUCCESS,
