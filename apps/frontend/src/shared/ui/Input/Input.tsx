@@ -29,7 +29,7 @@ export function Input(props: InputWithErrorProps) {
 
   return (
     <Field.Root
-      className={styles.input__field}
+      className={cn(styles.input, stateClass)}
       invalid={invalid}
       validate={validate}
       validationMode={validationMode}
@@ -44,7 +44,7 @@ export function Input(props: InputWithErrorProps) {
 
       <Field.Control
         id={id}
-        className={cn(styles.input, className, stateClass, icon && styles.input__control)}
+        className={cn(styles.input__field, className, icon && styles.input__control)}
         {...rest}
       />
 
