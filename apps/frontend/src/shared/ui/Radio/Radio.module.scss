@@ -1,0 +1,45 @@
+.radio {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  border: 1px solid var(--foreground);
+  border-radius: 12px;
+  padding: 12px;
+  cursor: pointer;
+
+  &__root {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--foreground);
+    flex: 0 0 auto;
+
+    &[data-disabled] {
+      opacity: 0.6;
+    }
+  }
+
+  &__indicator {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--foreground);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--card);
+  }
+
+  &__label {
+    color: var(--foreground);
+  }
+}

@@ -1,0 +1,78 @@
+.textarea {
+  width: 100%;
+  min-height: 96px;
+  resize: none;
+
+  padding: 10px 12px;
+
+  border: 1px solid var(--border);
+  border-radius: 8px;
+
+  background: var(--card);
+  color: var(--foreground);
+
+  font: inherit;
+
+  &:focus,
+  &:focus-visible {
+    outline: none;
+    box-shadow: none;
+  }
+
+  &[data-invalid] {
+    border-color: var(--danger);
+  }
+
+  &--default {
+    border-color: var(--border);
+  }
+
+  &--error {
+    border-color: var(--danger);
+
+    &:focus,
+    &:focus-visible {
+      border-color: var(--danger);
+    }
+  }
+
+  &--success {
+    border-color: var(--success);
+
+    &:focus,
+    &:focus-visible {
+      border-color: var(--success);
+    }
+  }
+
+  &--disabled {
+    background: var(--muted);
+    color: var(--muted-foreground);
+    cursor: not-allowed;
+  }
+
+  &__field {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+
+    &[data-invalid] {
+      .textarea__label {
+        color: var(--danger);
+      }
+    }
+  }
+
+  &__label {
+    color: var(--foreground);
+
+    &--error {
+      color: var(--danger);
+    }
+  }
+
+  &__error {
+    color: var(--danger);
+    font-size: 12px;
+  }
+}
