@@ -14,7 +14,7 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    background: transparent;
+    background: var(--foreground);
     flex: 0 0 auto;
 
     &[data-disabled] {
@@ -26,17 +26,17 @@
     width: 16px;
     height: 16px;
     border-radius: 50%;
-    background: var(--card);
+    background: var(--foreground);
     display: inline-flex;
     align-items: center;
     justify-content: center;
   }
 
   &__dot {
-    width: 16px;
-    height: 16px;
+    width: 8px;
+    height: 8px;
     border-radius: 50%;
-    background: var(--foreground);
+    background: var(--card);
   }
 
   &__label {
