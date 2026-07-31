@@ -58,3 +58,6 @@ storybook-static/
 docker/.env
 docker/postgres/data
 docker/pgadmin/data
+
+# Copilot
+.github
