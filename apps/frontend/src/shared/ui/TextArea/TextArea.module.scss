@@ -1,22 +1,18 @@
 .textarea {
   width: 100%;
   min-height: 96px;
-  resize: none;
-
   padding: 10px 12px;
-
   border: 1px solid var(--border);
   border-radius: 8px;
-
-  background: var(--card);
-  color: var(--foreground);
-
   font: inherit;
+  color: var(--foreground);
+  background: var(--card);
+  resize: none;
 
   &:focus,
   &:focus-visible {
-    outline: none;
     box-shadow: none;
+    outline: none;
   }
 
   &[data-invalid] {
@@ -46,8 +42,8 @@
   }
 
   &--disabled {
-    background: var(--muted);
     color: var(--muted-foreground);
+    background: var(--muted);
     cursor: not-allowed;
   }
 
@@ -72,7 +68,7 @@
   }
 
   &__error {
-    color: var(--danger);
     font-size: 12px;
+    color: var(--danger);
   }
 }
