@@ -37,6 +37,30 @@ interview-platform/
 Договорённости команды (git-флоу, код-ревью, созвоны, доска) фиксируются
 отдельно по мере старта.
 
+## Качество кода
+
+### Git hooks (Husky)
+
+После `pnpm install` ставятся husky-хуки:
+
+- **pre-commit** — `lint-staged` (Prettier + ESLint по staged-файлам)
+- **pre-push** — `pnpm lint` по монорепе
+
+### CI (GitHub Actions)
+
+На каждый pull request и push в `main` / `master` гоняется
+[`.github/workflows/ci.yml`](.github/workflows/ci.yml):
+
+- **Lint** — ESLint (frontend + backend) и Stylelint (frontend); перед lint
+  генерируется Prisma Client
+- **Build** — сборка backend и frontend
+
+Локально тот же набор:
+
+```bash
+pnpm ci
+```
+
 ## Branch name pattern
 
 feat/ — новая функциональность / страница / компонент.
@@ -131,11 +155,11 @@ pnpm docker:clean
 
 ### Сервисы
 
-| Service | URL |
-|----------|-----|
-| PostgreSQL | localhost:5432 |
-| Redis | localhost:6379 |
-| pgAdmin | http://localhost:5050 |
+| Service    | URL                   |
+| ---------- | --------------------- |
+| PostgreSQL | localhost:5432        |
+| Redis      | localhost:6379        |
+| pgAdmin    | http://localhost:5050 |
 
 ### Вход в pgAdmin:
 
