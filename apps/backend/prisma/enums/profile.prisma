@@ -1,0 +1,11 @@
+enum PositionCategory {
+  BACKEND
+  FRONTEND
+  FULLSTACK
+  MOBILE
+  DEVOPS
+  QA
+  DATA
+  DESIGN
+  MANAGEMENT
+}

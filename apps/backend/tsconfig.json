@@ -17,9 +17,9 @@
     "noFallthroughCasesInSwitch": true,
     "esModuleInterop": true,
     "paths": {
-      "#prisma/client": ["./generated/prisma/client"]
+      "@prisma/client": ["./generated/prisma/client"]
     }
   },
-  "include": ["src/**/*"],
+  "include": ["src/**/*", "prisma/**/*"],
   "exclude": ["node_modules", "dist", "generated"]
 }
