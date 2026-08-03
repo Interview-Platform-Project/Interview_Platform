@@ -21,6 +21,15 @@ export default tseslint.config(
       '**/*.d.ts',
     ],
   },
+  {
+    languageOptions: {
+      parserOptions: {
+        // Monorepo: without this, typescript-eslint sees multiple tsconfig roots
+        // (apps/frontend + repo root) and fails to parse files in the IDE.
+        tsconfigRootDir: import.meta.dirname,
+      },
+    },
+  },
   eslint.configs.recommended,
   ...tseslint.configs.recommended, // Основной конфиг для всех файлов
   {

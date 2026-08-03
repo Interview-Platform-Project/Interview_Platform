@@ -1,41 +1,41 @@
 :root {
   /* Surfaces / Поверхности */
-  --background: oklch(1 0 0);
-  --card: oklch(1 0 0);
-  --secondary: oklch(0.9674 0.0013 286.38);
-  --muted: oklch(0.9674 0.0013 286.38);
+  --background: oklch(100% 0 0deg);
+  --card: oklch(100% 0 0deg);
+  --secondary: oklch(96.74% 0.0013 286.38deg);
+  --muted: oklch(96.74% 0.0013 286.38deg);
 
-  /* Interactive / Интерактивные элементы*/
-  --primary: oklch(0.2103 0.0059 285.89);
-  --border: oklch(0.9197 0.004 286.32);
-  --ring: oklch(0.2103 0.0059 285.89);
+  /* Interactive / Интерактивные элементы */
+  --primary: oklch(21.03% 0.0059 285.89deg);
+  --border: oklch(91.97% 0.004 286.32deg);
+  --ring: oklch(21.03% 0.0059 285.89deg);
 
   /* Typography / Текст */
-  --foreground: oklch(0.1408 0.0044 285.82);
-  --muted-foreground: oklch(0.5517 0.0138 285.94);
+  --foreground: oklch(14.08% 0.0044 285.82deg);
+  --muted-foreground: oklch(55.17% 0.0138 285.94deg);
 
   /* Status / Статус */
-  --danger: oklch(0.6378 0.2373 25.44);
-  --danger-20: oklch(0.6378 0.2373 25.44 / 50.2%);
-  --warn: oklch(0.7977 0.1641 82.71);
-  --warn-20: oklch(0.7977 0.1641 82.71 / 20%);
-  --success: oklch(0.7289 0.2119 147.82);
-  --success-20: oklch(0.7289 0.2119 147.82 / 20%);
+  --danger: oklch(63.78% 0.2373 25.44deg);
+  --danger-20: oklch(63.78% 0.2373 25.44deg / 50.2%);
+  --warn: oklch(79.77% 0.1641 82.71deg);
+  --warn-20: oklch(79.77% 0.1641 82.71deg / 20%);
+  --success: oklch(72.89% 0.2119 147.82deg);
+  --success-20: oklch(72.89% 0.2119 147.82deg / 20%);
 }
 
 :root.dark {
   /* Surfaces / Поверхности */
-  --background: oklch(0.1408 0.0044 285.82);
-  --card: oklch(0.1831 0.004 285.99);
-  --secondary: oklch(0.2739 0.0055 286.03);
-  --muted: oklch(0.2103 0.0059 285.89);
+  --background: oklch(14.08% 0.0044 285.82deg);
+  --card: oklch(18.31% 0.004 285.99deg);
+  --secondary: oklch(27.39% 0.0055 286.03deg);
+  --muted: oklch(21.03% 0.0059 285.89deg);
 
-  /* Interactive / Интерактивные элементы*/
-  --primary: oklch(1 0 0);
-  --border: oklch(0.2739 0.0055 286.03);
-  --ring: oklch(0.8711 0.0055 286.29);
+  /* Interactive / Интерактивные элементы */
+  --primary: oklch(100% 0 0deg);
+  --border: oklch(27.39% 0.0055 286.03deg);
+  --ring: oklch(87.11% 0.0055 286.29deg);
 
   /* Typography / Текст */
-  --foreground: oklch(0.9851 0 0);
-  --muted-foreground: oklch(0.7118 0.0129 286.07);
+  --foreground: oklch(98.51% 0 0deg);
+  --muted-foreground: oklch(71.18% 0.0129 286.07deg);
 }

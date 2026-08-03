@@ -1,21 +1,21 @@
 .radio {
   display: inline-flex;
-  align-items: center;
-  gap: 12px;
+  padding: 12px;
   border: 1px solid var(--foreground);
   border-radius: 12px;
-  padding: 12px;
+  align-items: center;
+  gap: 12px;
   cursor: pointer;
 
   &__root {
+    display: inline-flex;
     width: 16px;
     height: 16px;
     border-radius: 50%;
-    display: inline-flex;
+    flex: 0 0 auto;
     align-items: center;
     justify-content: center;
     background: var(--foreground);
-    flex: 0 0 auto;
 
     &[data-disabled] {
       opacity: 0.6;
@@ -23,13 +23,13 @@
   }
 
   &__indicator {
+    display: inline-flex;
     width: 16px;
     height: 16px;
     border-radius: 50%;
-    background: var(--foreground);
-    display: inline-flex;
     align-items: center;
     justify-content: center;
+    background: var(--foreground);
   }
 
   &__dot {
