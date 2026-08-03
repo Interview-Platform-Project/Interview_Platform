@@ -1,17 +1,16 @@
 import eslint from '@eslint/js';
-import { defineConfig } from 'eslint/config';
 import eslintConfigPrettier from 'eslint-config-prettier';
 import tseslint from 'typescript-eslint';
 
-export default defineConfig(
-  eslint.configs.recommended,
-  ...tseslint.configs.recommended,
-  eslintConfigPrettier,
+export default tseslint.config(
   {
-    ignores: ['**/dist/**', '**/node_modules/**', '**/.turbo/**'],
+    ignores: ['**/dist/**', '**/node_modules/**', '**/.turbo/**', '**/generated/**', '**/*.d.ts'],
   },
+  eslint.configs.recommended,
   {
     files: ['apps/backend/{src,test}/**/*.ts'],
+    ignores: ['**/*.d.ts'],
+    extends: [tseslint.configs.recommendedTypeChecked],
     languageOptions: {
       parserOptions: {
         projectService: true,
@@ -24,6 +23,13 @@ export default defineConfig(
         'error',
         { argsIgnorePattern: '^_', varsIgnorePattern: '^_' },
       ],
+      '@typescript-eslint/no-floating-promises': 'error',
+      '@typescript-eslint/no-misused-promises': 'error',
+      '@typescript-eslint/consistent-type-imports': [
+        'error',
+        { prefer: 'type-imports', fixStyle: 'separate-type-imports' },
+      ],
     },
   },
+  eslintConfigPrettier,
 );
