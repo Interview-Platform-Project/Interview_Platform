@@ -1,11 +1,27 @@
-import { Button as ButtonPrimitive, ButtonProps } from '@base-ui/react/button';
-import { cn } from '@/shared/lib/utils';
+import { Button as BaseButton, ButtonProps as BaseButtonProps } from '@base-ui/react/button';
+import clsx from 'clsx';
 import styles from './Button.module.scss';
 
-function Button(props: ButtonProps) {
-  const { className, ...rest } = props;
-
-  return <ButtonPrimitive className={cn(styles.button, className)} data-slot="button" {...rest} />;
+export interface ButtonProps extends BaseButtonProps {
+  variant?: 'secondary' | 'outline' | 'ghost' | 'danger';
+  size?: 'sm' | 'md' | 'lg';
+  className?: string;
+  children?: React.ReactNode;
 }
 
-export { Button };
+export const Button = ({ ...props }: ButtonProps) => {
+  const { variant, size = 'md', className, children } = props;
+
+  const combinedClassName = clsx(
+    styles.button,
+    styles[`button--${variant}`],
+    styles[`button--${size}`],
+    className,
+  );
+
+  return (
+    <BaseButton className={combinedClassName} {...props}>
+      {children}
+    </BaseButton>
+  );
+};

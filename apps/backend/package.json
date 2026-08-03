@@ -9,13 +9,11 @@
     "dev": "nest start --watch",
     "start": "node dist/main.js",
     "start:prod": "node dist/main.js",
+    "prelint": "prisma generate",
     "lint": "eslint \"{src,test}/**/*.ts\"",
     "prisma:generate": "prisma generate",
     "prisma:migrate": "prisma migrate dev",
     "prisma:studio": "prisma studio"
-  },
-  "imports": {
-    "#prisma/client": "./generated/prisma/client.js"
   },
   "dependencies": {
     "@ip/shared": "workspace:*",

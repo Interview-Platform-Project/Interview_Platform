@@ -1,6 +1,6 @@
 import '@/app/styles/globals.scss';
 import type { Preview } from '@storybook/nextjs-vite';
-import { ThemeProvider } from '@/app/providers/ThemeProvider/ui';
+import { FontDecorator } from '@/shared/config/storybook/FontDecorator';
 import { ThemeDecorator } from '@/shared/config/storybook/ThemeDecorator';
 
 const preview: Preview = {
@@ -18,9 +18,7 @@ const preview: Preview = {
       test: 'todo',
     },
   },
-  decorators: [
-    ThemeDecorator
-  ],
+  decorators: [ThemeDecorator, FontDecorator],
 };
 
 export default preview;

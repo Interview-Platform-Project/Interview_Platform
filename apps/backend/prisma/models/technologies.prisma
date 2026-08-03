@@ -1,0 +1,25 @@
+model Technology {
+  id       String @id @default(uuid())
+  slug     String @unique
+  name     String
+  category String
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  profiles ProfileTechnology[]
+
+  @@map("technologies")
+}
+
+model ProfileTechnology {
+  profileId    String     @map("profile_id")
+  technologyId String     @map("technology_id")
+  level        SkillLevel
+
+  profile    Profile    @relation(fields: [profileId], references: [id], onDelete: Cascade)
+  technology Technology @relation(fields: [technologyId], references: [id], onDelete: Restrict)
+
+  @@id([profileId, technologyId])
+  @@map("profile_technologies")
+}

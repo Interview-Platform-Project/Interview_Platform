@@ -1,0 +1,36 @@
+.checkbox {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--foreground);
+  cursor: pointer;
+
+  &__root {
+    display: inline-flex;
+    width: 18px;
+    height: 18px;
+    border-radius: 6px;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: center;
+    background: var(--foreground);
+
+    &[data-disabled] {
+      opacity: 0.6;
+    }
+  }
+
+  &__indicator {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    svg {
+      color: var(--background);
+    }
+  }
+
+  &__label {
+    color: inherit;
+  }
+}

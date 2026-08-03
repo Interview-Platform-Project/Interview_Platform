@@ -11,7 +11,24 @@ import tseslint from 'typescript-eslint';
 export default tseslint.config(
   // Глобальные игнорируемые пути
   {
-    ignores: ['**/node_modules/**', '.next/**', 'out/**', 'dist/**', 'build/**', '**/*.d.ts'],
+    ignores: [
+      '**/node_modules/**',
+      '.next/**',
+      'out/**',
+      'dist/**',
+      'build/**',
+      'storybook-static/**',
+      '**/*.d.ts',
+    ],
+  },
+  {
+    languageOptions: {
+      parserOptions: {
+        // Monorepo: without this, typescript-eslint sees multiple tsconfig roots
+        // (apps/frontend + repo root) and fails to parse files in the IDE.
+        tsconfigRootDir: import.meta.dirname,
+      },
+    },
   },
   eslint.configs.recommended,
   ...tseslint.configs.recommended, // Основной конфиг для всех файлов

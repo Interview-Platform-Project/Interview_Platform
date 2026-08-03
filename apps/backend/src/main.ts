@@ -14,7 +14,7 @@ async function bootstrap() {
   const configService = app.get(ConfigService);
   const port = configService.get<number>('port', 3000);
 
-  app.setGlobalPrefix(`${process.env.GLOBAL_PREFIX?? 'api'}/${process.env.API_VER?? 'v1'}`);
+  app.setGlobalPrefix(`${process.env.GLOBAL_PREFIX ?? 'api'}/${process.env.API_VER ?? 'v1'}`);
   app.useGlobalPipes(
     new ValidationPipe(),
   );
@@ -35,4 +35,7 @@ async function bootstrap() {
   await app.listen(port);
 }
 
-bootstrap();
+bootstrap().catch((error: unknown) => {
+  console.error(error);
+  process.exit(1);
+});
