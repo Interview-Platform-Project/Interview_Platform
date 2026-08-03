@@ -17,7 +17,7 @@
     "noFallthroughCasesInSwitch": true,
     "esModuleInterop": true,
     "paths": {
-      "@prisma/client": ["./generated/prisma/client"]
+      "#prisma/client": ["./generated/prisma/client"]
     }
   },
   "include": ["src/**/*"],

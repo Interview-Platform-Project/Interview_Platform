@@ -7,7 +7,6 @@ import {
   Post,
   Req,
   Res,
-  UnauthorizedException,
   UseGuards,
 } from '@nestjs/common';
 import {
@@ -41,13 +40,10 @@ export class AuthController {
   @HttpCode(HttpStatus.CREATED)
   @ApiOperation({ summary: 'Register a new account' })
   @ApiCreatedResponse({ description: 'Account created and tokens issued' })
-  async register(
-    @Body() dto: RegisterDto,
-    @Res({ passthrough: true }) res: Response,
-  ) {
+  async register(@Body() dto: RegisterDto, @Res({ passthrough: true }) res: Response) {
     const { accessToken, refreshToken } = await this.authService.register(dto);
     this.tokenService.setTokenCookies(res, accessToken, refreshToken);
-    return { message: 'Registered successfully'};
+    return { message: 'Registered successfully' };
   }
 
   @Public()
@@ -63,7 +59,7 @@ export class AuthController {
   ) {
     const { accessToken, refreshToken } = await this.authService.login(req.user.id, req.user.email);
     this.tokenService.setTokenCookies(res, accessToken, refreshToken);
-    return { user: req.user};
+    return { user: req.user };
   }
 
   @Public()
@@ -72,16 +68,11 @@ export class AuthController {
   @ApiCookieAuth('refresh_token')
   @ApiOperation({ summary: 'Rotate tokens using the refresh_token cookie' })
   @ApiOkResponse({ description: 'New tokens issued' })
-  async refresh(
-    @Req() req: Request,
-    @Res({ passthrough: true }) res: Response,
-  ) {
+  async refresh(@Req() req: Request, @Res({ passthrough: true }) res: Response) {
     const token = (req.cookies as Record<string, string>)?.refresh_token;
-    if (!token) throw new UnauthorizedException('No refresh token provided');
-
-    const { accessToken, refreshToken } = await this.authService.refresh(token);
+    const { accessToken, refreshToken } = await this.authService.refreshTokens(token);
     this.tokenService.setTokenCookies(res, accessToken, refreshToken);
-    return { message: 'Tokens refreshed'};
+    return { message: 'Tokens refreshed' };
   }
 
   @Post('logout')
@@ -90,10 +81,7 @@ export class AuthController {
   @ApiCookieAuth('access_token')
   @ApiOperation({ summary: 'Logout and revoke refresh token' })
   @ApiOkResponse({ description: 'Logged out, cookies cleared' })
-  async logout(
-    @CurrentUser() user: AuthenticatedUser,
-    @Res({ passthrough: true }) res: Response,
-  ) {
+  async logout(@CurrentUser() user: AuthenticatedUser, @Res({ passthrough: true }) res: Response) {
     await this.authService.logout(user.id);
     this.tokenService.clearTokenCookies(res);
     return { message: 'Logged out' };

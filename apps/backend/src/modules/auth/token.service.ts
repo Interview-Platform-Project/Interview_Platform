@@ -1,20 +1,27 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import type { Response } from 'express';
+import type { AppConfig } from '../../config/configuration';
 
 @Injectable()
 export class TokenService {
-  constructor(private readonly configService: ConfigService) {}
+  private readonly app: AppConfig['app'];
+  private readonly jwt: AppConfig['jwt'];
+
+  constructor(configService: ConfigService<AppConfig, true>) {
+    this.app = configService.get('app', { infer: true });
+    this.jwt = configService.get('jwt', { infer: true });
+  }
 
   setTokenCookies(res: Response, accessToken: string, refreshToken: string): void {
-    const isProduction = this.configService.get<string>('app.nodeEnv') === 'production';
+    const isProduction = this.app.nodeEnv === 'production';
     const authPath = this.buildAuthPath();
 
     res.cookie('access_token', accessToken, {
       httpOnly: true,
       secure: isProduction,
       sameSite: 'lax',
-      maxAge: this.configService.getOrThrow<number>('jwt.accessExpiresMs'),
+      maxAge: this.jwt.accessExpiresMs,
     });
 
     res.cookie('refresh_token', refreshToken, {
@@ -22,7 +29,7 @@ export class TokenService {
       secure: isProduction,
       sameSite: 'strict',
       path: authPath,
-      maxAge: this.configService.getOrThrow<number>('jwt.refreshExpiresMs'),
+      maxAge: this.jwt.refreshExpiresMs,
     });
   }
 
@@ -32,8 +39,6 @@ export class TokenService {
   }
 
   private buildAuthPath(): string {
-    const prefix = this.configService.get<string>('app.globalPrefix', 'api');
-    const ver = this.configService.get<string>('app.apiVer', 'v1');
-    return `/${prefix}/${ver}/auth`;
+    return `/${this.app.globalPrefix}/${this.app.apiVer}/auth`;
   }
 }

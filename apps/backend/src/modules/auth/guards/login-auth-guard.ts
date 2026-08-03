@@ -1,4 +1,4 @@
-import { ExecutionContext, Injectable, UnauthorizedException } from '@nestjs/common';
+import { ExecutionContext, Injectable } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import type { Request } from 'express';
 import { ValidationPipe } from '../../../common/pipes/validation.pipe';
@@ -12,7 +12,11 @@ export class LoginAuthGuard extends AuthGuard(AuthStrategies.LOGIN) {
   async canActivate(context: ExecutionContext) {
     // Run ValidationPipe (same as global) before Passport so field errors return 400, not 401
     const request = context.switchToHttp().getRequest<Request>();
-    await this.validationPipe.transform(request.body, { metatype: LoginDto, type: 'body', data: '' });
+    await this.validationPipe.transform(request.body, {
+      metatype: LoginDto,
+      type: 'body',
+      data: '',
+    });
 
     return super.canActivate(context) as Promise<boolean>;
   }
