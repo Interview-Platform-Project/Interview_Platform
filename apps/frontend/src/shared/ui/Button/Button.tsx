@@ -10,7 +10,7 @@ export interface ButtonProps extends BaseButtonProps {
 }
 
 export const Button = ({ ...props }: ButtonProps) => {
-  const { variant, size = 'md', className, children } = props;
+  const { variant, size = 'md', className, children, ...otherProps } = props;
 
   const combinedClassName = clsx(
     styles.button,
@@ -20,7 +20,7 @@ export const Button = ({ ...props }: ButtonProps) => {
   );
 
   return (
-    <BaseButton className={combinedClassName} {...props}>
+    <BaseButton className={combinedClassName} {...otherProps}>
       {children}
     </BaseButton>
   );
