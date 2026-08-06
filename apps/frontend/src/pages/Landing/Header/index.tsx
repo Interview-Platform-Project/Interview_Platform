@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { Button } from '@/shared/ui';
+import { ThemeSwitcher } from '@/shared/ui/ThemeSwitcher';
 import styles from './Header.module.scss';
 export function Header() {
   return (
@@ -24,7 +25,7 @@ export function Header() {
       </nav>
 
       <div className={styles.header__actions}>
-        <button>TH</button>
+        <ThemeSwitcher />
         <Link className={styles.header__loginBtn} href="/login">
           Войти
         </Link>
