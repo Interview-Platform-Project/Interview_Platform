@@ -1,4 +1,4 @@
-import { Braces, Brackets, ChevronLeft, ChevronRight, FileText, Video } from 'lucide-react';
+import { Braces, FileText, Video } from 'lucide-react';
 import styles from './Features.module.scss';
 
 export function Features() {
