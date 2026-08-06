@@ -1,9 +1,10 @@
 .header {
     max-width: 1280px;
+    min-height: 80px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 19.5px 32px;
+    padding: 0px 32px;
     * {
         font-size: 14px;
     }

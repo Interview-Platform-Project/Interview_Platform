@@ -1,11 +1,15 @@
+import { Features } from './Features';
 import { Header } from './Header';
 import styles from './Landing.module.scss';
+import { Main } from './Main';
 export default function HomePage() {
   return (
     <div className={styles.wrapper}>
-      <div className={styles.content}>
+      <main className={styles.content}>
         <Header />
-      </div>
+        <Main />
+        <Features />
+      </main>
     </div>
   );
 }
