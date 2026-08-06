@@ -32,7 +32,8 @@ export class AuthService {
   }
 
   /** Validates email/password, returns user record or null. Used by LocalStrategy. */
-  async validateUser(email: string, password: string): Promise<AuthenticatedUser | null> {
+  async validateUser(rawEmail: string, password: string): Promise<AuthenticatedUser | null> {
+    const email: string = this.cleanEmail(rawEmail);
     const user = await this.prisma.user.findUnique({
       where: { email },
       include: { credential: true },
@@ -43,20 +44,21 @@ export class AuthService {
     return valid ? { id: user.id, email: user.email } : null;
   }
 
-  async register(dto: RegisterDto) {
-    const existing = await this.prisma.user.findUnique({ where: { email: dto.email } });
+  async register(dto: RegisterDto): Promise<AuthenticatedUser> {
+    const cleanedEmail: string = this.cleanEmail(dto.email);
+    const existing = await this.prisma.user.findUnique({ where: { email: cleanedEmail } });
     if (existing) throw new EmailAlreadyRegisteredException();
 
     const passwordHash = await argon2.hash(dto.password);
     const user = await this.prisma.user.create({
       data: {
-        email: dto.email,
+        email: cleanedEmail,
         name: dto.name,
         credential: { create: { passwordHash } },
       },
     });
 
-    return this.generateTokens(user.id, user.email);
+    return { id: user.id, email: user.email };
   }
 
   async login(userId: string, email: string) {
@@ -86,6 +88,10 @@ export class AuthService {
 
   async logout(userId: string) {
     await this.redis.del(`${REFRESH_PREFIX}${userId}`);
+  }
+
+  private cleanEmail(rawEmail: string): string {
+    return rawEmail.trim().toLowerCase();
   }
 
   private async generateTokens(userId: string, email: string) {

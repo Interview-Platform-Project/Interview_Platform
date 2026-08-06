@@ -1,7 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import type { Response } from 'express';
+import type { CookieOptions, Response } from 'express';
 import type { AppConfig } from '../../config/configuration';
+import { Tokens } from './enums/tokens';
 
 @Injectable()
 export class TokenService {
@@ -15,30 +16,53 @@ export class TokenService {
 
   setTokenCookies(res: Response, accessToken: string, refreshToken: string): void {
     const isProduction = this.app.nodeEnv === 'production';
-    const authPath = this.buildAuthPath();
 
-    res.cookie('access_token', accessToken, {
-      httpOnly: true,
-      secure: isProduction,
-      sameSite: 'lax',
-      maxAge: this.jwt.accessExpiresMs,
+    res.cookie(Tokens.ACCESS, accessToken, {
+      ...this.defaultCookies(isProduction),
+      ...this.defaultAccessCookies(),
     });
 
-    res.cookie('refresh_token', refreshToken, {
-      httpOnly: true,
-      secure: isProduction,
-      sameSite: 'strict',
-      path: authPath,
-      maxAge: this.jwt.refreshExpiresMs,
+    res.cookie(Tokens.REFRESH, refreshToken, {
+      ...this.defaultCookies(isProduction),
+      ...this.defaultRefreshCookies(),
     });
   }
 
   clearTokenCookies(res: Response): void {
-    res.clearCookie('access_token');
-    res.clearCookie('refresh_token', { path: this.buildAuthPath() });
+    const isProduction = this.app.nodeEnv === 'production';
+    res.clearCookie(Tokens.ACCESS, {
+      ...this.defaultCookies(isProduction),
+      ...this.defaultAccessCookies(),
+    });
+    res.clearCookie(Tokens.REFRESH, {
+      ...this.defaultCookies(isProduction),
+      ...this.defaultRefreshCookies(),
+    });
+  }
+
+  private defaultAccessCookies(): CookieOptions {
+    return {
+      sameSite: 'lax',
+      maxAge: this.jwt.accessExpiresMs,
+    };
+  }
+
+  private defaultRefreshCookies(): CookieOptions {
+    return {
+      sameSite: 'strict',
+      path: this.buildAuthPath(),
+      maxAge: this.jwt.refreshExpiresMs,
+    };
+  }
+
+  private defaultCookies(isProduction: boolean): CookieOptions {
+    return {
+      httpOnly: true,
+      secure: isProduction,
+    };
   }
 
   private buildAuthPath(): string {
-    return `/${this.app.globalPrefix}/${this.app.apiVer}/auth`;
+    return `/${this.app.globalPrefix}/${this.app.apiVersion}/auth`;
   }
 }

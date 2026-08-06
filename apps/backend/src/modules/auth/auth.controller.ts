@@ -26,6 +26,7 @@ import { RegisterDto } from './dto/register.dto';
 import { LoginAuthGuard } from './guards/login-auth-guard';
 import { Public } from './decorators/public.decorator';
 import { CurrentUser, type AuthenticatedUser } from './decorators/current-user.decorator';
+import { Tokens } from './enums/tokens';
 
 @ApiTags('auth')
 @Controller('auth')
@@ -38,12 +39,14 @@ export class AuthController {
   @Public()
   @Post('register')
   @HttpCode(HttpStatus.CREATED)
-  @ApiOperation({ summary: 'Register a new account' })
-  @ApiCreatedResponse({ description: 'Account created and tokens issued' })
+  @ApiOperation({ summary: 'Register a new account and sign in' })
+  @ApiBody({ type: RegisterDto })
+  @ApiCreatedResponse({ description: 'Account created, tokens issued, user returned' })
   async register(@Body() dto: RegisterDto, @Res({ passthrough: true }) res: Response) {
-    const { accessToken, refreshToken } = await this.authService.register(dto);
+    const user = await this.authService.register(dto);
+    const { accessToken, refreshToken } = await this.authService.login(user.id, user.email);
     this.tokenService.setTokenCookies(res, accessToken, refreshToken);
-    return { message: 'Registered successfully' };
+    return { user };
   }
 
   @Public()
@@ -65,11 +68,11 @@ export class AuthController {
   @Public()
   @Post('refresh')
   @HttpCode(HttpStatus.OK)
-  @ApiCookieAuth('refresh_token')
+  @ApiCookieAuth(Tokens.REFRESH)
   @ApiOperation({ summary: 'Rotate tokens using the refresh_token cookie' })
   @ApiOkResponse({ description: 'New tokens issued' })
   async refresh(@Req() req: Request, @Res({ passthrough: true }) res: Response) {
-    const token = (req.cookies as Record<string, string>)?.refresh_token;
+    const token = (req.cookies as Record<string, string>)?.[Tokens.REFRESH];
     const { accessToken, refreshToken } = await this.authService.refreshTokens(token);
     this.tokenService.setTokenCookies(res, accessToken, refreshToken);
     return { message: 'Tokens refreshed' };
@@ -78,7 +81,7 @@ export class AuthController {
   @Post('logout')
   @HttpCode(HttpStatus.OK)
   @ApiBearerAuth()
-  @ApiCookieAuth('access_token')
+  @ApiCookieAuth(Tokens.ACCESS)
   @ApiOperation({ summary: 'Logout and revoke refresh token' })
   @ApiOkResponse({ description: 'Logged out, cookies cleared' })
   async logout(@CurrentUser() user: AuthenticatedUser, @Res({ passthrough: true }) res: Response) {
@@ -89,7 +92,7 @@ export class AuthController {
 
   @Get('me')
   @ApiBearerAuth()
-  @ApiCookieAuth('access_token')
+  @ApiCookieAuth(Tokens.ACCESS)
   @ApiOperation({ summary: 'Get current authenticated user info' })
   @ApiOkResponse({ description: 'Current user from JWT payload' })
   me(@CurrentUser() user: AuthenticatedUser) {
