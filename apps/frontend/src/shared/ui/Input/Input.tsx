@@ -48,7 +48,11 @@ export function Input(props: InputWithErrorProps) {
         {...rest}
       />
 
-      {errorText ? <Field.Error className={styles.input__error}>{errorText}</Field.Error> : null}
+      {errorText ? (
+        <Field.Error className={styles.input__error} match>
+          {errorText}
+        </Field.Error>
+      ) : null}
     </Field.Root>
   );
 }
