@@ -13,6 +13,8 @@
   /* Typography / Текст */
   --foreground: oklch(14.08% 0.0044 285.82deg);
   --muted-foreground: oklch(55.17% 0.0138 285.94deg);
+  --text-primary: var(--foreground);
+  --text-secondary: var(--muted-foreground);
 
   /* Status / Статус */
   --danger: oklch(63.78% 0.2373 25.44deg);
