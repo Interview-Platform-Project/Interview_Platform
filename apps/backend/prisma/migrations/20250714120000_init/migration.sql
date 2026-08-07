@@ -1,3 +1,6 @@
+-- CreateSchema
+CREATE SCHEMA IF NOT EXISTS "public";
+
 -- CreateEnum
 CREATE TYPE "SkillLevel" AS ENUM ('JUNIOR', 'JUNIOR_PLUS', 'MIDDLE', 'MIDDLE_PLUS', 'SENIOR', 'LEAD');
 
@@ -27,6 +30,16 @@ CREATE TYPE "SessionType" AS ENUM ('MOCK', 'TECHNICAL');
 
 -- CreateEnum
 CREATE TYPE "ParticipantRole" AS ENUM ('INTERVIEWER', 'CANDIDATE', 'OBSERVER');
+
+-- CreateTable
+CREATE TABLE "credentials" (
+    "user_id" TEXT NOT NULL,
+    "password_hash" TEXT NOT NULL,
+    "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updated_at" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "credentials_pkey" PRIMARY KEY ("user_id")
+);
 
 -- CreateTable
 CREATE TABLE "feedback" (
@@ -274,6 +287,9 @@ CREATE UNIQUE INDEX "technologies_slug_key" ON "technologies"("slug");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "users_email_key" ON "users"("email");
+
+-- AddForeignKey
+ALTER TABLE "credentials" ADD CONSTRAINT "credentials_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "users"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "feedback" ADD CONSTRAINT "feedback_author_id_fkey" FOREIGN KEY ("author_id") REFERENCES "users"("id") ON DELETE CASCADE ON UPDATE CASCADE;
