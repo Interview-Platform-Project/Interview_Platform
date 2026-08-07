@@ -9,8 +9,8 @@ export interface ButtonProps extends BaseButtonProps {
   children?: React.ReactNode;
 }
 
-export const Button = ({ ...props }: ButtonProps) => {
-  const { variant, size = 'md', className, children } = props;
+export const Button = (props: ButtonProps) => {
+  const { variant, size = 'md', className, children, ...rest } = props;
 
   const combinedClassName = clsx(
     styles.button,
@@ -20,7 +20,7 @@ export const Button = ({ ...props }: ButtonProps) => {
   );
 
   return (
-    <BaseButton className={combinedClassName} {...props}>
+    <BaseButton className={combinedClassName} {...rest}>
       {children}
     </BaseButton>
   );
