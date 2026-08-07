@@ -1,0 +1,176 @@
+.auth-form {
+  display: flex;
+  width: 100%;
+  max-width: 384px;
+  flex-direction: column;
+  align-items: stretch;
+
+  &__header {
+    margin-bottom: 32px;
+
+    & h2 {
+      font-size: 24px;
+      font-weight: 700;
+      letter-spacing: -0.6px;
+      line-height: 32px;
+    }
+
+    & p {
+      margin-top: 8px;
+      font-family: var(--font-geist-mono);
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 20px;
+      color: var(--text-secondary);
+    }
+  }
+
+  &__github {
+    width: 100%;
+    margin-bottom: 24px;
+    border-color: var(--border);
+    font-weight: 500;
+  }
+
+  &__divider {
+    position: relative;
+    display: flex;
+    height: 40px;
+    align-items: flex-start;
+    justify-content: center;
+
+    &::before {
+      position: absolute;
+      top: 8px;
+      right: 0;
+      left: 0;
+      border-top: 1px solid var(--border);
+      content: '';
+    }
+
+    & span {
+      position: relative;
+      z-index: 1;
+      padding: 0 16px;
+      font-size: 12px;
+      font-weight: 400;
+      line-height: 16px;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+      background-color: var(--background);
+    }
+  }
+
+  &__form {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+  }
+
+  &__role {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  &__role-label {
+    font-family: var(--font-geist-mono);
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 20px;
+    color: var(--text-primary);
+  }
+
+  &__role-options {
+    display: grid;
+    width: 100%;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  &__role-option {
+    display: flex;
+    min-height: 74px;
+    padding: 13px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 20px;
+    color: var(--text-secondary);
+    background-color: var(--card);
+    transition:
+      border-color 0.2s ease,
+      background-color 0.2s ease,
+      color 0.2s ease;
+    cursor: pointer;
+
+    &:focus-visible {
+      outline: 2px solid var(--ring);
+      outline-offset: 2px;
+    }
+
+    &[data-checked] {
+      border-color: var(--primary);
+      color: var(--text-primary);
+      background-color: color-mix(in oklch, var(--primary) 10%, transparent);
+    }
+
+    &[data-disabled] {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+  }
+
+  &__fields {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  &__button {
+    width: 100%;
+    margin-top: 24px;
+    padding-block: 12px;
+    font-weight: 700;
+
+    & svg {
+      width: 16px;
+      height: 16px;
+    }
+  }
+
+  &__legal {
+    margin-top: 16px;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 19.5px;
+    text-align: center;
+    color: var(--text-secondary);
+
+    & a {
+      text-decoration: underline;
+      color: inherit;
+    }
+  }
+
+  &__footer {
+    margin-top: 32px;
+    font-family: var(--font-geist-mono);
+    font-size: 14px;
+    line-height: 20px;
+    text-align: center;
+    color: var(--text-secondary);
+
+    & a {
+      font-weight: 700;
+      text-decoration: none;
+      color: var(--text-primary);
+    }
+  }
+}
