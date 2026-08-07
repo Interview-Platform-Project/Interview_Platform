@@ -27,6 +27,10 @@ class EnvironmentVariables {
   @IsString()
   JWT_REFRESH_SECRET!: string;
 
+  @IsString()
+  @IsOptional()
+  CORS_ORIGIN?: string;
+
   @IsInt()
   @Min(1)
   @IsOptional()

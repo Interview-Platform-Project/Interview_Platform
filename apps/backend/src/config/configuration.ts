@@ -1,9 +1,10 @@
 export type AppConfig = {
   app: {
     globalPrefix: string;
-    apiVer: string;
+    apiVersion: string;
     nodeEnv: string;
     port: number;
+    corsOrigin: string;
   };
   database: {
     url: string;
@@ -19,13 +20,15 @@ export type AppConfig = {
   };
 };
 
-const NOTFOUND_KEY: string = 'KEY_NOT_FOUND';
+const NOTFOUND_KEY = 'KEY_NOT_FOUND';
+
 export default (): AppConfig => ({
   app: {
     globalPrefix: process.env.GLOBAL_PREFIX ?? 'api',
-    apiVer: process.env.API_VERSION ?? 'v1',
+    apiVersion: process.env.API_VERSION ?? 'v1',
     nodeEnv: process.env.NODE_ENV ?? 'development',
     port: parseInt(process.env.PORT ?? '3000', 10),
+    corsOrigin: process.env.CORS_ORIGIN ?? 'http://localhost:3001',
   },
   database: {
     url: process.env.DATABASE_URL ?? NOTFOUND_KEY,
