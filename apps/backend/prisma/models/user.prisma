@@ -3,9 +3,10 @@ model User {
   email String @unique
   name  String
 
-  profile   Profile?
-  feedbacks Feedback[]
-  sessions  Session[]
+  profile    Profile?
+  credential Credential?
+  feedbacks  Feedback[]
+  sessions   Session[]
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
