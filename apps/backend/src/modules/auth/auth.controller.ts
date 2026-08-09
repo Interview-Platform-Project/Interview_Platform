@@ -21,7 +21,6 @@ import {
 import type { Request, Response } from 'express';
 import { AuthService } from './auth.service';
 import { TokenService } from './token.service';
-import { LoginDto } from './dto/login.dto';
 import { RegisterDto } from './dto/register.dto';
 import { LoginAuthGuard } from './guards/login-auth-guard';
 import { Public } from './decorators/public.decorator';
@@ -40,7 +39,17 @@ export class AuthController {
   @Post('register')
   @HttpCode(HttpStatus.CREATED)
   @ApiOperation({ summary: 'Register a new account and sign in' })
-  @ApiBody({ type: RegisterDto })
+  @ApiBody({
+    schema: {
+      type: 'object',
+      required: ['email', 'name', 'password'],
+      properties: {
+        email: { type: 'string', format: 'email', example: 'user@example.com' },
+        name: { type: 'string', minLength: 4, maxLength: 100, example: 'John Doe' },
+        password: { type: 'string', minLength: 8, maxLength: 128, example: 'p@ssw0rd' },
+      },
+    },
+  })
   @ApiCreatedResponse({ description: 'Account created, tokens issued, user returned' })
   async register(@Body() dto: RegisterDto, @Res({ passthrough: true }) res: Response) {
     const user = await this.authService.register(dto);
@@ -54,7 +63,16 @@ export class AuthController {
   @Post('login')
   @HttpCode(HttpStatus.OK)
   @ApiOperation({ summary: 'Login with email and password' })
-  @ApiBody({ type: LoginDto })
+  @ApiBody({
+    schema: {
+      type: 'object',
+      required: ['email', 'password'],
+      properties: {
+        email: { type: 'string', format: 'email', example: 'user@example.com' },
+        password: { type: 'string', minLength: 8, maxLength: 128, example: 'p@ssw0rd' },
+      },
+    },
+  })
   @ApiOkResponse({ description: 'Tokens issued, set as HttpOnly cookies' })
   async login(
     @Req() req: Request & { user: AuthenticatedUser },

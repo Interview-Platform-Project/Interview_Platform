@@ -1,22 +1,14 @@
 import { Controller, Get } from '@nestjs/common';
-import {
-  ApiBearerAuth,
-  ApiCookieAuth,
-  ApiOkResponse,
-  ApiOperation,
-  ApiTags,
-} from '@nestjs/swagger';
+import { ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
 import type { HealthResponse } from '@ip/shared/src/interfaces/interfaces';
 import { HealthService } from './health.service';
-import { Tokens } from '../auth/enums/tokens';
+import { Public } from '../auth/decorators/public.decorator';
 
 @ApiTags('health')
-@ApiBearerAuth()
-@ApiCookieAuth(Tokens.ACCESS)
 @Controller('health')
 export class HealthController {
   constructor(private readonly healthService: HealthService) {}
-
+  @Public()
   @Get()
   @ApiOperation({ summary: 'Health check' })
   @ApiOkResponse({ description: 'Service health status' })
