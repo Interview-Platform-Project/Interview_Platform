@@ -104,6 +104,8 @@ pnpm dev
 | http://localhost:3000/api/v1/health | Health (Postgres + Redis) |
 | http://localhost:3000/api/v1/users | Список пользователей |
 | http://localhost:3000/docs | Swagger |
+| http://localhost:3000/ws-docs | интерактивный вьюер (сайдбар с каналами, схемы request/response) |
+| http://localhost:3000/ws-docs/asyncapi.yaml | сырая спека (можно вставить в studio.asyncapi.com) |
 | http://localhost:5050 | pgAdmin (веб) |
 
 #### pgAdmin: два разных входа

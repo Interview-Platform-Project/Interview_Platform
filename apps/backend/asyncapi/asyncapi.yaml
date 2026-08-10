@@ -1,0 +1,212 @@
+asyncapi: 3.1.0
+
+info:
+  title: Interview Platform — Editor WebSocket API
+  version: 1.0.0
+  description: |
+    События realtime-редактора кода, которыми обмениваются фронтенд и бэкенд
+    через Socket.IO во время интервью.
+
+    ## Подключение к комнате
+
+    Комната интервью определяется параметром `roomId`. Присоединиться к ней
+    можно двумя способами:
+
+    1. **Через handshake** — передать `roomId` в `auth.roomId` либо
+       `query.roomId` при установке соединения. Подключение к комнате
+       произойдёт автоматически, без отдельного события.
+    2. **Через событие `join_room`** — уже подключившись сокетом, отправить
+       `join_room` с телом `{ roomId }`. Так же можно переключиться на другую
+       комнату (клиент автоматически покинет предыдущую).
+
+    В обоих случаях сервер в ответ один раз пришлёт `code_state` — текущее
+    состояние редактора комнаты (пустая строка/`typescript`, если комната
+    ещё не существует).
+
+    ## Синхронизация кода
+
+    Клиент присылает изменения событием `code_update` с одним из двух видов
+    payload'а (см. `type`):
+
+    - `full` — полная замена содержимого редактора (например, при инициализации).
+    - `operation` — точечная операция `insert`/`delete` по позиции символа.
+
+    Сервер применяет изменение и рассылает получившееся состояние остальным
+    участникам комнаты тем же событием `code_update` (кроме отправителя).
+
+  license:
+    name: UNLICENSED
+
+servers:
+  local:
+    host: 'localhost:{port}'
+    protocol: socket.io
+    description: Локальный backend для разработки.
+    variables:
+      port:
+        default: '3000'
+        description: Порт из `PORT` в `.env` backend-приложения.
+
+defaultContentType: application/json
+
+channels:
+  joinRoom:
+    address: join_room
+    description: Клиент → сервер. Запрос на присоединение к комнате интервью.
+    messages:
+      joinRoomRequest:
+        $ref: '#/components/messages/joinRoomRequest'
+
+  codeState:
+    address: code_state
+    description: |
+      Сервер → клиент. Отправляется один раз сразу после присоединения к
+      комнате (по `join_room` либо по handshake-параметру `roomId`).
+    messages:
+      codeState:
+        $ref: '#/components/messages/editorState'
+
+  codeUpdate:
+    address: code_update
+    description: |
+      Двунаправленный канал синхронизации кода: клиент присылает изменение,
+      сервер рассылает обновлённое состояние остальным участникам комнаты.
+    messages:
+      codeUpdateFull:
+        $ref: '#/components/messages/codeUpdateFull'
+      codeUpdateOperation:
+        $ref: '#/components/messages/codeUpdateOperation'
+      codeUpdateBroadcast:
+        $ref: '#/components/messages/editorState'
+
+operations:
+  joinRoom:
+    action: receive
+    channel:
+      $ref: '#/channels/joinRoom'
+    summary: Клиент запрашивает подключение к комнате.
+    messages:
+      - $ref: '#/channels/joinRoom/messages/joinRoomRequest'
+
+  sendCodeState:
+    action: send
+    channel:
+      $ref: '#/channels/codeState'
+    summary: Сервер присылает текущее состояние редактора после присоединения к комнате.
+    messages:
+      - $ref: '#/channels/codeState/messages/codeState'
+
+  receiveCodeUpdate:
+    action: receive
+    channel:
+      $ref: '#/channels/codeUpdate'
+    summary: Клиент присылает изменение кода — полное состояние или точечную операцию.
+    messages:
+      - $ref: '#/channels/codeUpdate/messages/codeUpdateFull'
+      - $ref: '#/channels/codeUpdate/messages/codeUpdateOperation'
+
+  broadcastCodeUpdate:
+    action: send
+    channel:
+      $ref: '#/channels/codeUpdate'
+    summary: Сервер рассылает обновлённое состояние остальным участникам комнаты.
+    messages:
+      - $ref: '#/channels/codeUpdate/messages/codeUpdateBroadcast'
+
+components:
+  messages:
+    joinRoomRequest:
+      name: join_room
+      title: Запрос на присоединение к комнате
+      payload:
+        $ref: '#/components/schemas/JoinRoomDto'
+
+    editorState:
+      name: code_state
+      title: Состояние редактора
+      summary: Полный снимок текущего состояния редактора комнаты.
+      payload:
+        $ref: '#/components/schemas/EditorStateDto'
+
+    codeUpdateFull:
+      name: code_update
+      title: 'code_update: полная замена'
+      summary: Полная замена содержимого редактора.
+      payload:
+        $ref: '#/components/schemas/FullUpdateDto'
+
+    codeUpdateOperation:
+      name: code_update
+      title: 'code_update: точечная операция'
+      summary: Точечная операция insert/delete по позиции символа.
+      payload:
+        $ref: '#/components/schemas/OperationUpdateDto'
+
+  schemas:
+    JoinRoomDto:
+      type: object
+      required: [roomId]
+      properties:
+        roomId:
+          type: string
+          description: Идентификатор комнаты интервью.
+          examples: ['interview-session-42']
+
+    EditorStateDto:
+      type: object
+      required: [content, language]
+      properties:
+        content:
+          type: string
+          description: Текущее содержимое редактора комнаты.
+          examples: ['function sum(a, b) {\n  return a + b;\n}']
+        language:
+          type: string
+          description: Текущий выбранный язык программирования.
+          examples: ['typescript']
+
+    FullUpdateDto:
+      type: object
+      required: [type, language, content]
+      properties:
+        type:
+          type: string
+          const: full
+        language:
+          type: string
+          description: Язык программирования, выбранный в редакторе.
+          examples: ['typescript']
+        content:
+          type: string
+          description: Полное содержимое редактора.
+          examples: ['function sum(a, b) {\n  return a + b;\n}']
+
+    OperationUpdateDto:
+      type: object
+      required: [type, operation]
+      properties:
+        type:
+          type: string
+          const: operation
+        operation:
+          $ref: '#/components/schemas/OperationDto'
+
+    OperationDto:
+      type: object
+      required: [action, position]
+      properties:
+        action:
+          type: string
+          enum: [insert, delete]
+          description: Тип точечной операции редактирования.
+        position:
+          type: integer
+          description: Позиция символа в тексте, с которой применяется операция.
+          examples: [12]
+        text:
+          type: string
+          description: >-
+            Для "insert" — вставляемый текст. Для "delete" — ожидаемый
+            удаляемый текст (сервер сверяет его с реальным содержимым и
+            логирует предупреждение при расхождении).
+          examples: ['console.log(1)']

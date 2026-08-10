@@ -10,6 +10,13 @@ import { CodeUpdateDto } from './dto/code-update.dto';
 import { EditorService } from './editor.service';
 import { JoinRoomDto } from './dto/join-room.dto';
 
+/**
+ * Realtime-редактор кода: комнаты интервью (roomId), полная синхронизация
+ * состояния и точечные операции (insert/delete).
+ *
+ * Полный контракт событий (payload'ы, схемы) описан в `asyncapi/asyncapi.yaml`
+ * и доступен для просмотра на /ws-docs.
+ */
 @WebSocketGateway({
   cors: {
     origin: '*',

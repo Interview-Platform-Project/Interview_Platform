@@ -1,18 +1,14 @@
 import { Injectable } from '@nestjs/common';
 import { CodeUpdateDto } from './dto/code-update.dto';
 import { OperationDto } from './dto/operation.dto';
-
-interface EditorState {
-  content: string;
-  language: string;
-}
+import { EditorStateDto } from './dto/editor-state.dto';
 
 @Injectable()
 export class EditorService {
-  private readonly rooms = new Map<string, EditorState>();
+  private readonly rooms = new Map<string, EditorStateDto>();
 
-  updateCode(roomId: string, data: CodeUpdateDto) {
-    let state: EditorState = { content: '', language: '' };
+  updateCode(roomId: string, data: CodeUpdateDto): EditorStateDto {
+    let state: EditorStateDto = { content: '', language: '' };
 
     if (data.type === 'full') {
       state = {
@@ -33,7 +29,7 @@ export class EditorService {
     return state;
   }
 
-  private applyOperation(roomId: string, operation: OperationDto): EditorState {
+  private applyOperation(roomId: string, operation: OperationDto): EditorStateDto {
     const state = this.getState(roomId);
 
     let updatedCode = state.content;
@@ -75,7 +71,7 @@ export class EditorService {
     return updatedState;
   }
 
-  getState(roomId: string): EditorState {
+  getState(roomId: string): EditorStateDto {
     return (
       this.rooms.get(roomId) ?? {
         content: '',
