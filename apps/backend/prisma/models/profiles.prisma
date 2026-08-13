@@ -1,7 +1,6 @@
 model Profile {
   id              String  @id @default(cuid())
   userId          String  @unique @map("user_id")
-  avatarUrl       String? @map("avatar_url")
   positionId      String? @map("position_id")
   bio             String?
   country         String?
