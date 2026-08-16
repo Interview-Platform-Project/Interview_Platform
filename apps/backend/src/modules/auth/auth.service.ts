@@ -90,6 +90,13 @@ export class AuthService {
     await this.redis.del(`${REFRESH_PREFIX}${userId}`);
   }
 
+  async logoutByAccessToken(accessToken: string) {
+    const payload = this.jwtService.verify<JwtPayload>(accessToken, {
+      secret: this.jwt.secret,
+    });
+    await this.logout(payload.sub);
+  }
+
   private cleanEmail(rawEmail: string): string {
     return rawEmail.trim().toLowerCase();
   }

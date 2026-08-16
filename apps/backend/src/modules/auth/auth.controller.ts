@@ -96,14 +96,21 @@ export class AuthController {
     return { message: 'Tokens refreshed' };
   }
 
+  @Public()
   @Post('logout')
   @HttpCode(HttpStatus.OK)
-  @ApiBearerAuth()
   @ApiCookieAuth(Tokens.ACCESS)
-  @ApiOperation({ summary: 'Logout and revoke refresh token' })
+  @ApiOperation({ summary: 'Logout, revoke refresh token when possible, always clear cookies' })
   @ApiOkResponse({ description: 'Logged out, cookies cleared' })
-  async logout(@CurrentUser() user: AuthenticatedUser, @Res({ passthrough: true }) res: Response) {
-    await this.authService.logout(user.id);
+  async logout(@Req() req: Request, @Res({ passthrough: true }) res: Response) {
+    const accessToken = (req.cookies as Record<string, string>)?.[Tokens.ACCESS];
+    if (accessToken) {
+      try {
+        await this.authService.logoutByAccessToken(accessToken);
+      } catch {
+        // Invalid/expired access token — still clear cookies below.
+      }
+    }
     this.tokenService.clearTokenCookies(res);
     return { message: 'Logged out' };
   }
