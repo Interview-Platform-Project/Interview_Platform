@@ -171,3 +171,46 @@ pnpm docker:up:backend
 - Префикс API: `/api/v1` (см. `GLOBAL_PREFIX` / `API_VERSION` в `.env`).
 - Prisma 7: connection URL для CLI — в `prisma.config.ts`; в runtime — через `@prisma/adapter-pg` в `PrismaService`.
 - Схемы не класть сгенерированный клиент внутрь `prisma/` — только в `generated/prisma/`, иначе multi-file schema подхватит лишние `.prisma` файлы.
+
+## Prisma
+
+1. Установить новые зависимости
+```
+cd apps/backand
+pnpm install
+```
+
+2. Генерация моделей
+```
+pnpm prisma validate
+pnpm prisma format
+pnpm prisma generate
+```
+
+3. Миграции
+
+- *Сбос и перезапуск миграций, только на начальных этапах проектирования бд
+```
+// сброс миграций, если нужно
+pnpm prisma migrate reset
+
+// удалить начальную миграцию и запустить заного
+pnpm prisma migrate dev --name init_profile_domain
+```
+
+- Запустить миграции после git pull
+```
+pnpm prisma migrate deploy
+```
+
+- Проверить миграции
+```
+pnpm prisma migrate status
+```
+
+4. Prisma studio для просмотра таблиц и визуализации БД
+
+ *После команды сама откроет страницу в браузере, при изменении моделей, сидов и т.д. перезапускать не нужно, только обновить страницу
+```
+pnpm prisma studio
+```

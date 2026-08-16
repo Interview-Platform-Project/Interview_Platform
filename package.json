@@ -10,6 +10,11 @@
     "dev:backend": "pnpm --filter backend dev",
     "build": "pnpm -r build",
     "lint": "pnpm -r lint",
+    "lint:styles": "pnpm --filter frontend lint:styles",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "ci": "pnpm lint && pnpm lint:styles && pnpm --filter backend build && pnpm --filter frontend build",
+    "prepare": "husky",
     "docker:up": "docker compose -f docker/compose.yaml up -d",
     "docker:up:infra": "docker compose -f docker/compose.yaml up -d postgres redis pgadmin",
     "docker:up:backend": "docker compose -f docker/compose.yaml up -d --build backend",
@@ -20,11 +25,26 @@
     "docker:ps": "docker compose -f docker/compose.yaml ps",
     "docker:clean": "docker compose -f docker/compose.yaml down -v --remove-orphans"
   },
+  "lint-staged": {
+    "*": "prettier --write --ignore-unknown",
+    "apps/frontend/**/*.{js,jsx,ts,tsx}": "pnpm --filter frontend exec eslint --fix --max-warnings=0 --",
+    "apps/backend/**/*.{js,ts}": "eslint --fix --max-warnings=0 --",
+    "packages/shared/**/*.{js,ts}": "eslint --fix --max-warnings=0 --"
+  },
   "packageManager": "pnpm@9.15.9",
   "engines": {
     "node": ">=24"
   },
   "volta": {
     "node": "24.18.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.5",
+    "eslint": "^9.39.5",
+    "eslint-config-prettier": "^10.1.8",
+    "husky": "^9.1.7",
+    "lint-staged": "^17.3.0",
+    "prettier": "^3.9.6",
+    "typescript-eslint": "^8.65.0"
   }
 }

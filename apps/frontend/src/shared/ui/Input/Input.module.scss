@@ -1,8 +1,8 @@
 .input {
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: 4px;
-  position: relative;
 
   &[data-invalid] {
     .input {
@@ -21,9 +21,6 @@
       color: var(--muted-foreground);
     }
   }
-
-
-
 
   &--default {
     & .input__field {
@@ -44,7 +41,6 @@
 
   &--success {
     & .input__field {
-
       border-color: var(--success);
 
       &:focus,
@@ -55,18 +51,18 @@
   }
 
   &--disabled {
-    background-color: var(--muted);
     color: var(--muted-foreground);
+    background-color: var(--muted);
     cursor: not-allowed;
   }
 
   &__field {
     width: 100%;
-    border: 1px solid var(--border);
     padding: 10px 12px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
     font-size: 14px;
     color: var(--foreground);
-    border-radius: 8px;
     background-color: var(--card);
 
     &[data-invalid] {
@@ -75,8 +71,8 @@
 
     &:focus,
     &:focus-visible {
-      outline: none;
       box-shadow: none;
+      outline: none;
     }
   }
 
@@ -89,24 +85,24 @@
   }
 
   &__error {
-    color: var(--danger);
     font-size: 12px;
+    color: var(--danger);
   }
 
   &__icon {
     position: absolute;
-    left: 12px;
+    z-index: 2;
     top: 30%;
     bottom: 0;
-    margin: auto 0;
+    left: 12px;
+    display: inline-flex;
     width: 16px;
     height: 16px;
-    display: inline-flex;
+    margin: auto 0;
     align-items: center;
     justify-content: center;
     color: var(--muted-foreground);
     pointer-events: none;
-    z-index: 2;
   }
 
   &__control {

@@ -21,10 +21,12 @@ export class HttpExceptionFilter implements ExceptionFilter {
     const exceptionResponse =
       exception instanceof HttpException ? exception.getResponse() : 'Internal server error';
 
-    const message =
+    const message: string | string[] =
       typeof exceptionResponse === 'string'
         ? exceptionResponse
-        : ((exceptionResponse as { message?: string | string[] }).message ?? 'Internal server error');
+        : Array.isArray(exceptionResponse)
+          ? exceptionResponse
+          : ((exceptionResponse as { message?: string | string[] }).message ?? 'Internal server error');
 
     const error =
       typeof exceptionResponse === 'object' && exceptionResponse !== null
