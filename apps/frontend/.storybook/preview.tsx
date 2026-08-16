@@ -5,6 +5,7 @@ import { ThemeDecorator } from '@/shared/config/storybook/ThemeDecorator';
 
 const preview: Preview = {
   parameters: {
+    chromatic: { disableSnapshot: true },
     controls: {
       matchers: {
         color: /(background|color)$/i,

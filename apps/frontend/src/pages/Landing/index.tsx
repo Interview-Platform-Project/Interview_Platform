@@ -4,7 +4,7 @@ import { Footer } from './Footer';
 import { Header } from './Header';
 import styles from './Landing.module.scss';
 import { Main } from './Main';
-export default function HomePage() {
+export default function Landing() {
   return (
     <div className={styles.wrapper}>
       <main className={styles.content}>
