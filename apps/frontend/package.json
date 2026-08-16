@@ -12,7 +12,7 @@
     "lint:styles:fix": "stylelint \"**/*.{css,scss}\" --fix",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "test:visual": "chromatic --project-token="
+    "test:visual": "chromatic"
   },
   "dependencies": {
     "@base-ui/react": "^1.6.0",
