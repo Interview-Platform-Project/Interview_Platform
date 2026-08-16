@@ -40,6 +40,29 @@ class EnvironmentVariables {
   @Min(1)
   @IsOptional()
   JWT_REFRESH_EXPIRES_MS?: number;
+
+  @IsString()
+  S3_ENDPOINT!: string;
+
+  @IsString()
+  @IsOptional()
+  S3_REGION?: string;
+
+  @IsString()
+  S3_ACCESS_KEY_ID!: string;
+
+  @IsString()
+  S3_SECRET_ACCESS_KEY!: string;
+
+  @IsString()
+  S3_BUCKET!: string;
+
+  @IsString()
+  S3_PUBLIC_URL!: string;
+
+  @IsString()
+  @IsOptional()
+  S3_FORCE_PATH_STYLE?: string;
 }
 
 export function validate(config: Record<string, unknown>) {

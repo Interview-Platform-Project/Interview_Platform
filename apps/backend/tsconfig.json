@@ -18,7 +18,8 @@
     "esModuleInterop": true,
     "paths": {
       "#prisma/client": ["./generated/prisma/client"]
-    }
+    },
+    "types": ["multer"]
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules", "dist", "generated"]

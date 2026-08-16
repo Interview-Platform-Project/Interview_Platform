@@ -18,6 +18,15 @@ export type AppConfig = {
     refreshSecret: string;
     refreshExpiresMs: number;
   };
+  s3: {
+    endpoint: string;
+    region: string;
+    accessKeyId: string;
+    secretAccessKey: string;
+    bucket: string;
+    publicUrl: string;
+    forcePathStyle: boolean;
+  };
 };
 
 const NOTFOUND_KEY = 'KEY_NOT_FOUND';
@@ -41,5 +50,14 @@ export default (): AppConfig => ({
     accessExpiresMs: parseInt(process.env.JWT_ACCESS_EXPIRES_MS ?? '900000', 10),
     refreshSecret: process.env.JWT_REFRESH_SECRET ?? NOTFOUND_KEY,
     refreshExpiresMs: parseInt(process.env.JWT_REFRESH_EXPIRES_MS ?? '604800000', 10),
+  },
+  s3: {
+    endpoint: process.env.S3_ENDPOINT ?? NOTFOUND_KEY,
+    region: process.env.S3_REGION ?? 'us-east-1',
+    accessKeyId: process.env.S3_ACCESS_KEY_ID ?? NOTFOUND_KEY,
+    secretAccessKey: process.env.S3_SECRET_ACCESS_KEY ?? NOTFOUND_KEY,
+    bucket: process.env.S3_BUCKET ?? NOTFOUND_KEY,
+    publicUrl: process.env.S3_PUBLIC_URL ?? NOTFOUND_KEY,
+    forcePathStyle: process.env.S3_FORCE_PATH_STYLE === 'true',
   },
 });

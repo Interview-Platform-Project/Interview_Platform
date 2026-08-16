@@ -1,6 +1,3 @@
--- CreateSchema
-CREATE SCHEMA IF NOT EXISTS "public";
-
 -- CreateEnum
 CREATE TYPE "SkillLevel" AS ENUM ('JUNIOR', 'JUNIOR_PLUS', 'MIDDLE', 'MIDDLE_PLUS', 'SENIOR', 'LEAD');
 
@@ -151,7 +148,6 @@ CREATE TABLE "positions" (
 CREATE TABLE "profiles" (
     "id" TEXT NOT NULL,
     "user_id" TEXT NOT NULL,
-    "avatar_url" TEXT,
     "position_id" TEXT,
     "bio" TEXT,
     "country" TEXT,
@@ -224,6 +220,7 @@ CREATE TABLE "users" (
     "id" TEXT NOT NULL,
     "email" TEXT NOT NULL,
     "name" TEXT NOT NULL,
+    "avatar_key" TEXT,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMP(3) NOT NULL,
 

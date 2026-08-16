@@ -8,7 +8,7 @@ export default tseslint.config(
   },
   eslint.configs.recommended,
   {
-    files: ['apps/backend/{src,test}/**/*.ts'],
+    files: ['apps/backend/{src,test}/**/*.ts', 'packages/shared/src/**/*.ts'],
     ignores: ['**/*.d.ts'],
     extends: [tseslint.configs.recommendedTypeChecked],
     languageOptions: {
