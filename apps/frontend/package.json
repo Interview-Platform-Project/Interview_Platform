@@ -17,6 +17,7 @@
     "@base-ui/react": "^1.6.0",
     "@hookform/resolvers": "^5.7.1",
     "@ip/shared": "workspace:*",
+    "@tanstack/react-query": "^5.101.4",
     "clsx": "^2.1.1",
     "lucide-react": "^1.24.0",
     "next": "16.2.10",
@@ -26,7 +27,8 @@
     "react-hook-form": "^7.84.0",
     "sass": "^1.101.0",
     "shadcn": "^4.13.0",
-    "zod": "^4.4.3"
+    "zod": "^4.4.3",
+    "zustand": "^5.0.14"
   },
   "devDependencies": {
     "@chromatic-com/storybook": "^5.2.1",
@@ -36,6 +38,7 @@
     "@storybook/addon-themes": "^10.5.2",
     "@storybook/addon-vitest": "^10.5.0",
     "@storybook/nextjs-vite": "^10.5.0",
+    "@tanstack/eslint-plugin-query": "^5.101.4",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",

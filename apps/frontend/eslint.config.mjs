@@ -2,6 +2,7 @@
 
 import eslint from '@eslint/js';
 import nextPlugin from '@next/eslint-plugin-next';
+import pluginQuery from '@tanstack/eslint-plugin-query';
 import importPlugin from 'eslint-plugin-import';
 import reactPlugin from 'eslint-plugin-react';
 import reactHooksPlugin from 'eslint-plugin-react-hooks';
@@ -31,7 +32,8 @@ export default tseslint.config(
     },
   },
   eslint.configs.recommended,
-  ...tseslint.configs.recommended, // Основной конфиг для всех файлов
+  ...tseslint.configs.recommended,
+  ...pluginQuery.configs['flat/recommended'], // Основной конфиг для всех файлов
   {
     plugins: {
       react: reactPlugin,
