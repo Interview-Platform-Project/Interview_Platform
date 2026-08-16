@@ -1,12 +1,14 @@
+import Image from 'next/image';
 import Link from 'next/link';
 import { Button } from '@/shared/ui';
 import { ThemeSwitcher } from '@/shared/ui/ThemeSwitcher';
 import styles from './Header.module.scss';
+
 export function Header() {
   return (
     <header className={styles.header}>
       <Link href="/" className={styles.header__logo}>
-        INTERVIEW//PLATFORM
+        <Image fill src="/logo.svg" alt="INTERVIEW//PLATFORM" />
       </Link>
 
       <nav className={styles.header__nav} aria-label="Основная навигация">
