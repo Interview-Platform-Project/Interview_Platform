@@ -1,0 +1,14 @@
+.root {
+  display: flex;
+  flex-direction: column;
+}
+
+.greeting {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.date {
+  font-size: 12px;
+  color: var(--muted-foreground);
+}
