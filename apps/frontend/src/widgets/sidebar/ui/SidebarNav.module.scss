@@ -1,9 +1,6 @@
 .sidebar-nav {
   display: flex;
   flex-direction: column;
-  max-width: 256px;
-  height: 100%;
-  width: 100%;
   border-right: 1px solid var(--border);
   justify-content: space-between;
   background: var(--card);

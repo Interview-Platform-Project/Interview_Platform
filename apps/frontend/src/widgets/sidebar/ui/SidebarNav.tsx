@@ -1,6 +1,8 @@
 'use client';
 
+import Image from 'next/image';
 import Link from 'next/link';
+
 import { usePathname } from 'next/navigation';
 
 import { Button } from '@/shared/ui';
@@ -16,7 +18,7 @@ export default function SidebarNav() {
     <nav className={styles['sidebar-nav']}>
       <div>
         <div className={styles['sidebar-header']}>
-          <span>INTERVIEW//PLATFORM</span>
+          <Image width={176} height={24} src="/logo.svg" alt="INTERVIEW//PLATFORM" />
         </div>
         <div className={styles['sidebar-body']}>
           {sidebarNavMock.map((item) => {
