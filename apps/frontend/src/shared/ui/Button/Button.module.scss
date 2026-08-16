@@ -95,4 +95,23 @@
     opacity: 0.5;
     cursor: not-allowed;
   }
+
+  &--loading {
+    cursor: wait;
+  }
+
+  &__spinner {
+    flex-shrink: 0;
+    animation: button-spin 1s linear infinite;
+  }
+}
+
+@keyframes button-spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
 }
