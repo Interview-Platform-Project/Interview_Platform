@@ -1,16 +1,21 @@
-import { Button as BaseButton, ButtonProps as BaseButtonProps } from '@base-ui/react/button';
+import { Button as BaseButton } from '@base-ui/react/button';
+
 import clsx from 'clsx';
+
+import React, { ComponentPropsWithoutRef } from 'react';
 import styles from './Button.module.scss';
 
-export interface ButtonProps extends BaseButtonProps {
+type PolymorphicButtonProps<T extends React.ElementType = typeof BaseButton> = {
+  as?: T;
   variant?: 'secondary' | 'outline' | 'ghost' | 'danger';
   size?: 'sm' | 'md' | 'lg';
-  className?: string;
-  children?: React.ReactNode;
-}
+} & ComponentPropsWithoutRef<T>;
 
-export const Button = ({ ...props }: ButtonProps) => {
-  const { variant, size = 'md', className, children, ...otherProps } = props;
+export const Button = <T extends React.ElementType = typeof BaseButton>({
+  ...props
+}: PolymorphicButtonProps<T>) => {
+  const { variant, size = 'md', className, children, as, ...rest } = props;
+  const Component = as || BaseButton;
 
   const combinedClassName = clsx(
     styles.button,
@@ -20,8 +25,8 @@ export const Button = ({ ...props }: ButtonProps) => {
   );
 
   return (
-    <BaseButton className={combinedClassName} {...otherProps}>
+    <Component className={combinedClassName} {...rest}>
       {children}
-    </BaseButton>
+    </Component>
   );
 };
