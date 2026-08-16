@@ -1,3 +1,22 @@
 .login {
-  display: flex;
+  &__options {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  &__forgot {
+    font-family: var(--font-geist-mono);
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 20px;
+    text-decoration: none;
+    color: var(--text-primary);
+    white-space: nowrap;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
 }

@@ -18,3 +18,9 @@ export const registerSchema = z
 export const registerSchemaResolver = zodResolver(registerSchema);
 
 export type registerSchema = z.infer<typeof registerSchema>;
+export type registerResponse = {
+  user: {
+    id: string;
+    email: string;
+  };
+};

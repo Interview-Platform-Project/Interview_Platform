@@ -133,6 +133,17 @@
     gap: 16px;
   }
 
+  &__server-error {
+    margin-top: 16px;
+    padding: 12px 14px;
+    border: 1px solid var(--danger-20);
+    border-radius: 12px;
+    font-size: 14px;
+    line-height: 20px;
+    color: var(--danger);
+    background-color: color-mix(in oklch, var(--danger) 8%, transparent);
+  }
+
   &__button {
     width: 100%;
     margin-top: 24px;

@@ -1,15 +1,26 @@
 'use client';
 
+import { useQueryClient } from '@tanstack/react-query';
 import { ArrowRight } from 'lucide-react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
+import { ApiError, apiRequest } from '@/shared/api';
 import { Button } from '@/shared/ui/Button';
 import { Input } from '@/shared/ui/Input';
 import styles from '../../auth.module.scss';
 import { registerSchemaResolver } from '../types';
-import type { registerSchema as RegisterSchema } from '../types';
+import type {
+  registerSchema as RegisterSchema,
+  registerResponse as RegisterResponse,
+} from '../types';
 
 export function Register() {
+  const router = useRouter();
+  const queryClient = useQueryClient();
+  const [isLoading, setIsLoading] = useState(false);
+  const [serverError, setServerError] = useState<string | null>(null);
   const { handleSubmit, control } = useForm<RegisterSchema>({
     resolver: registerSchemaResolver,
     defaultValues: {
@@ -19,12 +30,39 @@ export function Register() {
       passwordConfirm: '',
     },
   });
-  const onSubmit = (data: RegisterSchema) => {
-    console.log(data);
+
+  const onSubmit = async (data: RegisterSchema) => {
+    const { name, email, password } = data;
+    setIsLoading(true);
+    setServerError(null);
+
+    try {
+      const response = await apiRequest<RegisterResponse>({
+        url: '/auth/register',
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, password }),
+        skipRefresh: true,
+      });
+
+      if (response?.user) {
+        queryClient.setQueryData(['me'], response);
+        router.push('/home');
+      }
+    } catch (error) {
+      if (error instanceof ApiError) {
+        setServerError(error.message);
+      } else {
+        setServerError('Не удалось создать аккаунт. Попробуйте ещё раз.');
+      }
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
     <div className={styles['auth-form']}>
+      {isLoading && <div className={styles['auth-form__loading']}>Загрузка...</div>}
       <header className={styles['auth-form__header']}>
         <h2>Регистрация</h2>
         <p>Присоединяйтесь к платформе</p>
@@ -92,7 +130,9 @@ export function Register() {
           />
         </div>
 
-        <Button className={styles['auth-form__button']} type="submit">
+        {serverError && <p className={styles['auth-form__server-error']}>{serverError}</p>}
+
+        <Button className={styles['auth-form__button']} type="submit" isLoading={isLoading}>
           Создать аккаунт
           <ArrowRight aria-hidden size={16} />
         </Button>
