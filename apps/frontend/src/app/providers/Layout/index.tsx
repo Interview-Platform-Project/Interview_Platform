@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import { fonts } from '@/app/config/fonts';
 import { cn } from '@/shared/lib/utils';
 
+import { AuthProvider } from '../AuthProvider';
 import { ThemeProvider } from '../ThemeProvider';
 
 export const metadata: Metadata = {
@@ -24,9 +25,9 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body>
-        <ThemeProvider>
-          {children}
-        </ThemeProvider>
+        <AuthProvider>
+          <ThemeProvider>{children}</ThemeProvider>
+        </AuthProvider>
       </body>
     </html>
   );
