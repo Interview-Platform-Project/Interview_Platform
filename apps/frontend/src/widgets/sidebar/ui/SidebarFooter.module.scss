@@ -1,7 +1,7 @@
 .root {
+  display: flex;
   padding: 16px;
   border-top: 1px solid var(--border);
-  display: flex;
   flex-direction: column;
   gap: 12px;
 }
@@ -12,14 +12,14 @@
 }
 
 .avatar {
+  display: inline-flex;
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  display: inline-flex;
   align-items: center;
   justify-content: center;
-  background: var(--secondary);
   color: var(--muted-foreground);
+  background: var(--secondary);
 }
 
 .userInfo {
@@ -28,9 +28,9 @@
 }
 
 .name {
+  font-size: 16px;
   font-weight: 600;
   color: var(--foreground);
-  font-size: 16px;
 }
 
 .sub {
@@ -40,10 +40,11 @@
 
 .menu {
   display: flex;
+  margin-top: 8px;
   flex-direction: column;
   align-items: stretch;
-  margin-top: 8px;
 }
+
 .sidebar-button {
   display: flex;
   flex-direction: row;

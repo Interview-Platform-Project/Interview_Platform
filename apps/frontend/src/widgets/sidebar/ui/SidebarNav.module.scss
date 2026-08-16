@@ -1,7 +1,7 @@
 .sidebar-nav {
   display: flex;
-  flex-direction: column;
   border-right: 1px solid var(--border);
+  flex-direction: column;
   justify-content: space-between;
   background: var(--card);
 }
