@@ -1,44 +1,46 @@
 .header {
-    max-width: 1280px;
-    min-height: 80px;
-    margin: 0 auto;
-    border-bottom: 1px solid var(--border);
+  display: flex;
+  max-width: 1280px;
+  min-height: 80px;
+  margin: 0 auto;
+  padding: 0 32px;
+  border-bottom: 1px solid var(--border);
+  align-items: center;
+  justify-content: space-between;
+  gap: 1em;
+
+  * {
+    font-size: 14px;
+  }
+
+  &__logo {
+    position: relative;
+    width: 197px;
+    height: 28px;
+  }
+
+  &__nav {
+    font-family: var(--font-geist-mono);
+    color: #a1a1aa;
+  }
+
+  &__navList {
     display: flex;
-    justify-content: space-between;
-    gap: 1em;
     align-items: center;
-    padding: 0px 32px;
-    * {
-        font-size: 14px;
-    }
+    gap: 32px;
+  }
 
-    &__logo {
-        position: relative;
-        width: 197px;
-        height: 28px;
-    }
+  &__actions {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
 
-    &__nav {
-        color: #a1a1aa;
-        font-family: var(--font-geist-mono);
+  &__loginBtn {
+    @media (hover: hover) {
+      &:hover {
+        opacity: 0.92;
+      }
     }
-
-    &__navList {
-        display: flex;
-        align-items: center;
-        gap: 32px;
-    }
-
-    &__actions {
-        display: flex;
-        align-items: center;
-        gap: 16px;
-    }
-    &__loginBtn {
-        @media (hover: hover) {
-            &:hover {
-                opacity: 0.92;
-            }
-        }
-    }
+  }
 }
