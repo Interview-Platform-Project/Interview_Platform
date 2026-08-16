@@ -11,7 +11,8 @@
     "lint:fix": "eslint --fix",
     "lint:styles:fix": "stylelint \"**/*.{css,scss}\" --fix",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "test:visual": "chromatic --project-token="
   },
   "dependencies": {
     "@base-ui/react": "^1.6.0",
@@ -38,6 +39,7 @@
     "@types/react-dom": "^19",
     "@vitest/browser-playwright": "^4.1.10",
     "@vitest/coverage-v8": "^4.1.10",
+    "chromatic": "^18.2.0",
     "eslint-config-next": "16.2.10",
     "eslint-plugin-boundaries": "^7.0.2",
     "eslint-plugin-storybook": "^10.5.0",
