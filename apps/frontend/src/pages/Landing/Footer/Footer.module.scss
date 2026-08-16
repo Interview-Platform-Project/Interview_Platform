@@ -1,0 +1,33 @@
+.wrapper {
+  min-height: 121px;
+  padding: 48px 24px;
+  font-family: var(--font-geist-mono);
+  background-color: var(--card);
+}
+
+.content {
+  display: flex;
+  max-width: 1280px;
+  margin: 0 auto;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2em;
+}
+
+.logo {
+  position: relative;
+  width: 176px;
+  height: 24px;
+}
+
+.copyright {
+  font-size: 14px;
+  color: var(--muted-foreground);
+}
+
+.links {
+  display: flex;
+  gap: 24px;
+  font-size: 14px;
+  line-height: 20px;
+}
