@@ -1,10 +1,10 @@
-import { Register } from '@/features/Auth/Register/ui';
-import { AuthInfo } from '@/widgets/AuthInfo/ui';
+import { RegisterForm } from '@/features/register';
+import { AuthInfo } from '@/widgets/AuthInfo';
 
 export function RegisterPage() {
   return (
     <AuthInfo>
-      <Register />
+      <RegisterForm />
     </AuthInfo>
   );
 }

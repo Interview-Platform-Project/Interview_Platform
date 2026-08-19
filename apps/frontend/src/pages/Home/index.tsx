@@ -1,7 +1,16 @@
+'use client';
+
+import { useSession } from '@/entities/session';
+import { LogoutButton } from '@/features/logout';
+
 export default function HomePage() {
+  const { data } = useSession();
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      Hello world
-    </div>
+    <main>
+      <h1>Home</h1>
+      {data?.user ? <p>{data.user.email}</p> : null}
+      <LogoutButton />
+    </main>
   );
 }
