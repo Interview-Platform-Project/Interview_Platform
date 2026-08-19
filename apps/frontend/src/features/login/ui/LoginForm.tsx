@@ -6,21 +6,21 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
-import { ApiError, apiRequest } from '@/shared/api';
+import { loginRequest, SESSION_QUERY_KEY } from '@/entities/session';
+import { ApiError } from '@/shared/api';
+import formStyles from '@/shared/ui/AuthForm/auth-form.module.scss';
 import { Button } from '@/shared/ui/Button';
 import { Checkbox } from '@/shared/ui/Checkbox';
 import { Input } from '@/shared/ui/Input';
-import styles from '../../auth.module.scss';
-import { loginSchemaResolver } from '../types';
-import type { LoginResponse, LoginSchema } from '../types';
-import loginStyles from './login.module.scss';
+import { loginSchemaResolver, type LoginFormValues } from '../model/login-schema';
+import styles from './login-form.module.scss';
 
-export function Login() {
+export function LoginForm() {
   const router = useRouter();
   const queryClient = useQueryClient();
   const [isLoading, setIsLoading] = useState(false);
   const [serverError, setServerError] = useState<string | null>(null);
-  const { handleSubmit, control } = useForm<LoginSchema>({
+  const { handleSubmit, control } = useForm<LoginFormValues>({
     resolver: loginSchemaResolver,
     defaultValues: {
       email: '',
@@ -29,22 +29,16 @@ export function Login() {
     },
   });
 
-  const onSubmit = async (data: LoginSchema) => {
+  const onSubmit = async (data: LoginFormValues) => {
     const { email, password } = data;
     setIsLoading(true);
     setServerError(null);
 
     try {
-      const response = await apiRequest<LoginResponse>({
-        url: '/auth/login',
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password }),
-        skipRefresh: true,
-      });
+      const response = await loginRequest({ email, password });
 
       if (response?.user) {
-        queryClient.setQueryData(['me'], response);
+        queryClient.setQueryData(SESSION_QUERY_KEY, response);
         router.push('/home');
       }
     } catch (error) {
@@ -59,15 +53,14 @@ export function Login() {
   };
 
   return (
-    <div className={styles['auth-form']}>
-      {isLoading && <div className={styles['auth-form__loading']}>Загрузка...</div>}
-      <header className={styles['auth-form__header']}>
+    <div className={formStyles['auth-form']}>
+      <header className={formStyles['auth-form__header']}>
         <h2>Вход</h2>
         <p>Вернуться в рабочую среду</p>
       </header>
 
-      <form className={styles['auth-form__form']} onSubmit={handleSubmit(onSubmit)}>
-        <div className={styles['auth-form__fields']}>
+      <form className={formStyles['auth-form__form']} onSubmit={handleSubmit(onSubmit)}>
+        <div className={formStyles['auth-form__fields']}>
           <Controller
             name="email"
             control={control}
@@ -98,7 +91,7 @@ export function Login() {
             )}
           />
 
-          <div className={loginStyles.login__options}>
+          <div className={styles['login-form__options']}>
             <Controller
               name="remember"
               control={control}
@@ -112,21 +105,21 @@ export function Login() {
                 </Checkbox>
               )}
             />
-            <Link className={loginStyles.login__forgot} href="/forgot-password">
+            <Link className={styles['login-form__forgot']} href="/forgot-password">
               Забыли пароль?
             </Link>
           </div>
         </div>
 
-        {serverError && <p className={styles['auth-form__server-error']}>{serverError}</p>}
+        {serverError && <p className={formStyles['auth-form__server-error']}>{serverError}</p>}
 
-        <Button className={styles['auth-form__button']} type="submit" isLoading={isLoading}>
+        <Button className={formStyles['auth-form__button']} type="submit" isLoading={isLoading}>
           Войти
           <ArrowRight aria-hidden size={16} />
         </Button>
       </form>
 
-      <p className={styles['auth-form__footer']}>
+      <p className={formStyles['auth-form__footer']}>
         Нет аккаунта? <Link href="/register">Создать аккаунт</Link>
       </p>
     </div>

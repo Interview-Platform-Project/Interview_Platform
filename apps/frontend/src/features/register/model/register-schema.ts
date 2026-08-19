@@ -15,12 +15,6 @@ export const registerSchema = z
     path: ['passwordConfirm'],
   });
 
-export const registerSchemaResolver = zodResolver(registerSchema);
+export type RegisterFormValues = z.infer<typeof registerSchema>;
 
-export type registerSchema = z.infer<typeof registerSchema>;
-export type registerResponse = {
-  user: {
-    id: string;
-    email: string;
-  };
-};
+export const registerSchemaResolver = zodResolver(registerSchema);

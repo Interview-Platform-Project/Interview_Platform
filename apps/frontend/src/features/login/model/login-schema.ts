@@ -7,12 +7,6 @@ export const loginSchema = z.object({
   remember: z.boolean(),
 });
 
-export const loginSchemaResolver = zodResolver(loginSchema);
+export type LoginFormValues = z.infer<typeof loginSchema>;
 
-export type LoginSchema = z.infer<typeof loginSchema>;
-export type LoginResponse = {
-  user: {
-    id: string;
-    email: string;
-  };
-};
+export const loginSchemaResolver = zodResolver(loginSchema);

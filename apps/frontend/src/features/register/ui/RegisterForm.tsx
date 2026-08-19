@@ -6,22 +6,19 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
-import { ApiError, apiRequest } from '@/shared/api';
+import { registerRequest, SESSION_QUERY_KEY } from '@/entities/session';
+import { ApiError } from '@/shared/api';
+import formStyles from '@/shared/ui/AuthForm/auth-form.module.scss';
 import { Button } from '@/shared/ui/Button';
 import { Input } from '@/shared/ui/Input';
-import styles from '../../auth.module.scss';
-import { registerSchemaResolver } from '../types';
-import type {
-  registerSchema as RegisterSchema,
-  registerResponse as RegisterResponse,
-} from '../types';
+import { registerSchemaResolver, type RegisterFormValues } from '../model/register-schema';
 
-export function Register() {
+export function RegisterForm() {
   const router = useRouter();
   const queryClient = useQueryClient();
   const [isLoading, setIsLoading] = useState(false);
   const [serverError, setServerError] = useState<string | null>(null);
-  const { handleSubmit, control } = useForm<RegisterSchema>({
+  const { handleSubmit, control } = useForm<RegisterFormValues>({
     resolver: registerSchemaResolver,
     defaultValues: {
       name: '',
@@ -31,22 +28,16 @@ export function Register() {
     },
   });
 
-  const onSubmit = async (data: RegisterSchema) => {
+  const onSubmit = async (data: RegisterFormValues) => {
     const { name, email, password } = data;
     setIsLoading(true);
     setServerError(null);
 
     try {
-      const response = await apiRequest<RegisterResponse>({
-        url: '/auth/register',
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, email, password }),
-        skipRefresh: true,
-      });
+      const response = await registerRequest({ name, email, password });
 
       if (response?.user) {
-        queryClient.setQueryData(['me'], response);
+        queryClient.setQueryData(SESSION_QUERY_KEY, response);
         router.push('/home');
       }
     } catch (error) {
@@ -61,15 +52,14 @@ export function Register() {
   };
 
   return (
-    <div className={styles['auth-form']}>
-      {isLoading && <div className={styles['auth-form__loading']}>Загрузка...</div>}
-      <header className={styles['auth-form__header']}>
+    <div className={formStyles['auth-form']}>
+      <header className={formStyles['auth-form__header']}>
         <h2>Регистрация</h2>
         <p>Присоединяйтесь к платформе</p>
       </header>
 
-      <form className={styles['auth-form__form']} onSubmit={handleSubmit(onSubmit)}>
-        <div className={styles['auth-form__fields']}>
+      <form className={formStyles['auth-form__form']} onSubmit={handleSubmit(onSubmit)}>
+        <div className={formStyles['auth-form__fields']}>
           <Controller
             name="name"
             control={control}
@@ -114,6 +104,7 @@ export function Register() {
               </Input>
             )}
           />
+
           <Controller
             name="passwordConfirm"
             control={control}
@@ -130,21 +121,21 @@ export function Register() {
           />
         </div>
 
-        {serverError && <p className={styles['auth-form__server-error']}>{serverError}</p>}
+        {serverError && <p className={formStyles['auth-form__server-error']}>{serverError}</p>}
 
-        <Button className={styles['auth-form__button']} type="submit" isLoading={isLoading}>
+        <Button className={formStyles['auth-form__button']} type="submit" isLoading={isLoading}>
           Создать аккаунт
           <ArrowRight aria-hidden size={16} />
         </Button>
 
-        <p className={styles['auth-form__legal']}>
+        <p className={formStyles['auth-form__legal']}>
           Создавая аккаунт, вы соглашаетесь с нашими{' '}
           <Link href="/terms">Условиями использования</Link> и{' '}
           <Link href="/privacy">Политикой конфиденциальности</Link>.
         </p>
       </form>
 
-      <p className={styles['auth-form__footer']}>
+      <p className={formStyles['auth-form__footer']}>
         Уже есть аккаунт? <Link href="/login">Войти</Link>
       </p>
     </div>
