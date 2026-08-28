@@ -23,6 +23,10 @@ info:
     состояние редактора комнаты (пустая строка/`typescript`, если комната
     ещё не существует).
 
+    Покинуть текущую комнату без присоединения к другой можно событием
+    `leave_room` (без payload'а). При разрыве соединения комната покидается
+    автоматически.
+
     ## Синхронизация кода
 
     Клиент присылает изменения событием `code_update` с одним из двух видов
@@ -57,6 +61,13 @@ channels:
       joinRoomRequest:
         $ref: '#/components/messages/joinRoomRequest'
 
+  leaveRoom:
+    address: leave_room
+    description: Клиент → сервер. Запрос на выход из текущей комнаты (без payload'а).
+    messages:
+      leaveRoomRequest:
+        $ref: '#/components/messages/leaveRoomRequest'
+
   codeState:
     address: code_state
     description: |
@@ -87,6 +98,14 @@ operations:
     summary: Клиент запрашивает подключение к комнате.
     messages:
       - $ref: '#/channels/joinRoom/messages/joinRoomRequest'
+
+  leaveRoom:
+    action: receive
+    channel:
+      $ref: '#/channels/leaveRoom'
+    summary: Клиент запрашивает выход из текущей комнаты.
+    messages:
+      - $ref: '#/channels/leaveRoom/messages/leaveRoomRequest'
 
   sendCodeState:
     action: send
@@ -120,6 +139,11 @@ components:
       title: Запрос на присоединение к комнате
       payload:
         $ref: '#/components/schemas/JoinRoomDto'
+
+    leaveRoomRequest:
+      name: leave_room
+      title: Запрос на выход из комнаты
+      payload: {}
 
     editorState:
       name: code_state

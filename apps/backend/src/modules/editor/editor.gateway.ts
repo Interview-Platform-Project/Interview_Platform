@@ -38,6 +38,11 @@ export class EditorGateway implements OnGatewayConnection {
     this.joinRoom(client, data.roomId);
   }
 
+  @SubscribeMessage('leave_room')
+  handleLeaveRoom(@ConnectedSocket() client: Socket) {
+    this.leaveRoom(client);
+  }
+
   @SubscribeMessage('code_update')
   handleCodeUpdate(
     @MessageBody() rawData: string | CodeUpdateDto,
@@ -59,16 +64,23 @@ export class EditorGateway implements OnGatewayConnection {
   }
 
   private joinRoom(client: Socket, roomId: string) {
-    const previousRoom = client.data.roomId;
-
-    if (previousRoom) {
-      client.leave(previousRoom);
-    }
+    this.leaveRoom(client);
 
     client.data.roomId = roomId;
     client.join(roomId);
 
     client.emit('code_state', this.editorService.getState(roomId));
+  }
+
+  private leaveRoom(client: Socket) {
+    const roomId = this.getRoomId(client);
+
+    if (!roomId) {
+      return;
+    }
+
+    client.leave(roomId);
+    client.data.roomId = undefined;
   }
 
   private resolveRoomIdFromHandshake(client: Socket): string | undefined {
